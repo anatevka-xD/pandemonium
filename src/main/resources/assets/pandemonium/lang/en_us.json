@@ -1,5 +1,7 @@
 {
   "item.pandemonium.signum_mali": "Signum Mali",
   "item.pandemonium.mandrake_seeds": "Mandrake Seeds",
-  "block.pandemonium.flesh_block": "Block of Flesh"
+  "block.pandemonium.flesh_block": "Block of Flesh",
+  "block.pandemonium.altar": "Altar",
+  "tab.pandemonium.pandemonium": "Pandemonium"
 }

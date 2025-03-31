@@ -1,6 +1,7 @@
 package com.anatevka.pandemonium;
 
 import com.anatevka.pandemonium.block.ModBlocks;
+import com.anatevka.pandemonium.item.ModCreativeTabs;
 import com.anatevka.pandemonium.item.ModItems;
 import net.minecraft.world.item.CreativeModeTabs;
 import org.slf4j.Logger;
@@ -43,6 +44,7 @@ public class Pandemonium
         // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
         NeoForge.EVENT_BUS.register(this);
 
+        ModCreativeTabs.register(modEventBus);
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
 
@@ -69,9 +71,7 @@ public class Pandemonium
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
-        if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
-            event.accept(ModItems.SIGNUM_MALI);
-            event.accept(ModItems.MANDRAKE_SEEDS);
+        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
             event.accept(ModBlocks.FLESH_BLOCK);
         }
     }
