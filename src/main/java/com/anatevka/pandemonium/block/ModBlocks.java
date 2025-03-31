@@ -14,10 +14,11 @@ import java.util.function.Function;
 public class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(Pandemonium.MODID);
     public static final DeferredBlock<Block> FLESH_BLOCK = registerBlockWithItem("flesh_block", Block::new, BlockBehaviour.Properties.of()
-            .strength(4f)
+            .strength(3f)
             .sound(SoundType.MUD));
     public static final DeferredBlock<Block> ALTAR = registerBlockWithItem("altar", Block::new, BlockBehaviour.Properties.of()
             .strength(4f)
+            .requiresCorrectToolForDrops()
             .sound(SoundType.NETHERITE_BLOCK));
     public static <T extends Block> DeferredBlock<T> registerBlockWithItem(String name, Function<BlockBehaviour.Properties, T> blockCreator, BlockBehaviour.Properties properties) {
         DeferredBlock<T> block = BLOCKS.registerBlock(name, blockCreator, properties);
