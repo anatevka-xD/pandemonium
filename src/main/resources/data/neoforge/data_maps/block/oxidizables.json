@@ -1,0 +1,13 @@
+{
+  "values": {
+    "pandemonium:copper_pedestal": {
+      "next_oxidation_stage": "pandemonium:exposed_copper_pedestal"
+    },
+    "pandemonium:exposed_copper_pedestal": {
+      "next_oxidation_stage": "pandemonium:weathered_copper_pedestal"
+    },
+    "pandemonium:weathered_copper_pedestal": {
+      "next_oxidation_stage": "pandemonium:oxidized_copper_pedestal"
+    }
+  }
+}

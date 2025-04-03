@@ -3,5 +3,13 @@
   "item.pandemonium.mandrake_seeds": "Mandrake Seeds",
   "block.pandemonium.flesh_block": "Block of Flesh",
   "block.pandemonium.altar": "Altar",
+  "block.pandemonium.copper_pedestal": "Copper Pedestal",
+  "block.pandemonium.exposed_copper_pedestal": "Exposed Copper Pedestal",
+  "block.pandemonium.oxidized_copper_pedestal": "Oxidized Copper Pedestal",
+  "block.pandemonium.weathered_copper_pedestal": "Weathered Copper Pedestal",
+  "block.pandemonium.waxed_copper_pedestal": "Waxed Copper Pedestal",
+  "block.pandemonium.waxed_exposed_copper_pedestal": "Waxed Exposed Copper Pedestal",
+  "block.pandemonium.waxed_oxidized_copper_pedestal": "Waxed Oxidized Copper Pedestal",
+  "block.pandemonium.waxed_weathered_copper_pedestal": "Waxed Weathered Copper Pedestal",
   "tab.pandemonium.pandemonium": "Pandemonium"
 }

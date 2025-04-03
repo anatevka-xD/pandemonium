@@ -1,9 +1,12 @@
 package com.anatevka.pandemonium;
 
 import com.anatevka.pandemonium.block.ModBlocks;
+import com.anatevka.pandemonium.block.entity.ModBlockEntities;
+import com.anatevka.pandemonium.block.entity.renderer.CopperPedestalBlockEntityRenderer;
 import com.anatevka.pandemonium.item.ModCreativeTabs;
 import com.anatevka.pandemonium.item.ModItems;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -47,6 +50,7 @@ public class Pandemonium
         ModCreativeTabs.register(modEventBus);
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
@@ -95,5 +99,23 @@ public class Pandemonium
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
         }
+        @SubscribeEvent
+        public static void registerBER(EntityRenderersEvent.RegisterRenderers event) {
+            event.registerBlockEntityRenderer(ModBlockEntities.COPPER_PEDESTAL_BE.get(), CopperPedestalBlockEntityRenderer::new);
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

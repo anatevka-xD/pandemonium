@@ -1,0 +1,16 @@
+{
+  "values": {
+    "pandemonium:copper_pedestal": {
+      "waxed": "pandemonium:waxed_copper_pedestal"
+    },
+    "pandemonium:exposed_copper_pedestal": {
+      "waxed": "pandemonium:waxed_exposed_copper_pedestal"
+    },
+    "pandemonium:weathered_copper_pedestal": {
+      "waxed": "pandemonium:waxed_weathered_copper_pedestal"
+    },
+    "pandemonium:oxidized_copper_pedestal": {
+      "waxed": "pandemonium:waxed_oxidized_copper_pedestal"
+    }
+  }
+}

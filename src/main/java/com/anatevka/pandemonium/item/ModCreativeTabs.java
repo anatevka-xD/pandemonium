@@ -23,6 +23,14 @@ public class ModCreativeTabs {
                         output.accept(ModItems.MANDRAKE_SEEDS);
                         output.accept(ModBlocks.FLESH_BLOCK);
                         output.accept(ModBlocks.ALTAR);
+                        output.accept(ModBlocks.COPPER_PEDESTAL);
+                        output.accept(ModBlocks.EXPOSED_COPPER_PEDESTAL);
+                        output.accept(ModBlocks.WEATHERED_COPPER_PEDESTAL);
+                        output.accept(ModBlocks.OXIDIZED_COPPER_PEDESTAL);
+                        output.accept(ModBlocks.WAXED_COPPER_PEDESTAL);
+                        output.accept(ModBlocks.WAXED_EXPOSED_COPPER_PEDESTAL);
+                        output.accept(ModBlocks.WAXED_WEATHERED_COPPER_PEDESTAL);
+                        output.accept(ModBlocks.WAXED_OXIDIZED_COPPER_PEDESTAL);
                     }).build());
     public static void register(IEventBus eventBus) {
         CREATIVE_MODE_TABS.register(eventBus);
