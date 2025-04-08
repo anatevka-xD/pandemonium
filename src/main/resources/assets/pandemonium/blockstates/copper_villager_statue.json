@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "pandemonium:block/copper_villager_statue",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "pandemonium:block/copper_villager_statue"
+    },
+    "facing=south": {
+      "model": "pandemonium:block/copper_villager_statue",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "pandemonium:block/copper_villager_statue",
+      "y": 270
+    }
+  }
+}

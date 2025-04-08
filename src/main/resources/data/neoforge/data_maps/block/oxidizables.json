@@ -8,6 +8,24 @@
     },
     "pandemonium:weathered_copper_pedestal": {
       "next_oxidation_stage": "pandemonium:oxidized_copper_pedestal"
+    },
+    "pandemonium:copper_villager_statue": {
+      "next_oxidation_stage": "pandemonium:exposed_copper_villager_statue"
+    },
+    "pandemonium:exposed_copper_villager_statue": {
+      "next_oxidation_stage": "pandemonium:weathered_copper_villager_statue"
+    },
+    "pandemonium:weathered_copper_villager_statue": {
+      "next_oxidation_stage": "pandemonium:oxidized_copper_villager_statue"
+    },
+    "pandemonium:copper_creeper_statue": {
+      "next_oxidation_stage": "pandemonium:exposed_copper_creeper_statue"
+    },
+    "pandemonium:exposed_copper_creeper_statue": {
+      "next_oxidation_stage": "pandemonium:weathered_copper_creeper_statue"
+    },
+    "pandemonium:weathered_copper_creeper_statue": {
+      "next_oxidation_stage": "pandemonium:oxidized_copper_creeper_statue"
     }
   }
 }
