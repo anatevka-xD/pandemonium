@@ -21,6 +21,8 @@ public class ModCreativeTabs {
                     .displayItems((parameters, output) -> {
                         output.accept(ModItems.SIGNUM_MALI);
                         output.accept(ModItems.MANDRAKE_SEEDS);
+                        output.accept(ModItems.GRIMOIRE);
+                        output.accept(ModItems.LOST_PAGE);
                         output.accept(ModBlocks.FLESH_BLOCK);
                         output.accept(ModBlocks.ALTAR);
                         output.accept(ModBlocks.COPPER_PEDESTAL);
