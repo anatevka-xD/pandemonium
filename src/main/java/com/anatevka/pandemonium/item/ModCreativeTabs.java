@@ -23,6 +23,7 @@ public class ModCreativeTabs {
                         output.accept(ModItems.MANDRAKE_SEEDS);
                         output.accept(ModItems.GRIMOIRE);
                         output.accept(ModItems.LOST_PAGE);
+                        output.accept(ModItems.TATTERED_PAGE);
                         output.accept(ModBlocks.FLESH_BLOCK);
                         output.accept(ModBlocks.ALTAR);
                         output.accept(ModBlocks.COPPER_PEDESTAL);
