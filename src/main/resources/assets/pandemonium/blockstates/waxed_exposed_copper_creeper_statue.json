@@ -1,19 +1,66 @@
 {
   "variants": {
-    "facing=east": {
+    "rotation=0": {
+      "model": "pandemonium:block/exposed_copper_creeper_statue"
+    },
+    "rotation=4": {
       "model": "pandemonium:block/exposed_copper_creeper_statue",
       "y": 90
     },
-    "facing=north": {
-      "model": "pandemonium:block/exposed_copper_creeper_statue"
-    },
-    "facing=south": {
+    "rotation=8": {
       "model": "pandemonium:block/exposed_copper_creeper_statue",
       "y": 180
     },
-    "facing=west": {
+    "rotation=12": {
       "model": "pandemonium:block/exposed_copper_creeper_statue",
       "y": 270
+    },
+    "rotation=1": {
+      "model": "pandemonium:block/exposed_copper_creeper_statue_angle_3"
+    },
+    "rotation=5": {
+      "model": "pandemonium:block/exposed_copper_creeper_statue_angle_3",
+      "y": 90
+    },
+    "rotation=9": {
+      "model": "pandemonium:block/exposed_copper_creeper_statue_angle_3",
+      "y": 180
+    },
+    "rotation=13": {
+      "model": "pandemonium:block/exposed_copper_creeper_statue_angle_3",
+      "y": 270
+    },
+    "rotation=2": {
+      "model": "pandemonium:block/exposed_copper_creeper_statue_angle_2",
+      "y": 90
+    },
+    "rotation=6": {
+      "model": "pandemonium:block/exposed_copper_creeper_statue_angle_2",
+      "y": 180
+    },
+    "rotation=10": {
+      "model": "pandemonium:block/exposed_copper_creeper_statue_angle_2",
+      "y": 270
+    },
+    "rotation=14": {
+      "model": "pandemonium:block/exposed_copper_creeper_statue_angle_2",
+      "y": 0
+    },
+    "rotation=3": {
+      "model": "pandemonium:block/exposed_copper_creeper_statue_angle_1",
+      "y": 90
+    },
+    "rotation=7": {
+      "model": "pandemonium:block/exposed_copper_creeper_statue_angle_1",
+      "y": 180
+    },
+    "rotation=11": {
+      "model": "pandemonium:block/exposed_copper_creeper_statue_angle_1",
+      "y": 270
+    },
+    "rotation=15": {
+      "model": "pandemonium:block/exposed_copper_creeper_statue_angle_1",
+      "y": 0
     }
   }
 }
