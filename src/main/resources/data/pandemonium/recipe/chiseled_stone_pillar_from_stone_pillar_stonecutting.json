@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pandemonium:stone_pillar",
+  "result": {
+    "count": 1,
+    "id": "pandemonium:chiseled_stone_pillar"
+  }
+}
