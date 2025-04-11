@@ -26,6 +26,8 @@ public class ModCreativeTabs {
                         output.accept(ModItems.TATTERED_PAGE);
                         output.accept(ModBlocks.FLESH_BLOCK);
                         output.accept(ModBlocks.ALTAR);
+                        output.accept(ModBlocks.STONE_PILLAR);
+                        output.accept(ModBlocks.CHISELED_STONE_PILLAR);
                         output.accept(ModBlocks.COPPER_PEDESTAL);
                         output.accept(ModBlocks.EXPOSED_COPPER_PEDESTAL);
                         output.accept(ModBlocks.WEATHERED_COPPER_PEDESTAL);

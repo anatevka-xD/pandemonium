@@ -4,11 +4,9 @@ import com.anatevka.pandemonium.Pandemonium;
 import com.anatevka.pandemonium.block.custom.CopperCreeperStatue;
 import com.anatevka.pandemonium.block.custom.CopperPedestal;
 import com.anatevka.pandemonium.block.custom.CopperVillagerStatue;
+import com.anatevka.pandemonium.block.custom.StonePillar;
 import com.anatevka.pandemonium.item.ModItems;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.WeatheringCopper;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -26,6 +24,10 @@ public class ModBlocks {
             .strength(4f)
             .requiresCorrectToolForDrops()
             .sound(SoundType.NETHERITE_BLOCK));
+    public static final DeferredBlock<StonePillar> STONE_PILLAR = registerBlockWithItem("stone_pillar", StonePillar::new, BlockBehaviour.Properties
+            .ofFullCopy(Blocks.STONE));
+    public static final DeferredBlock<StonePillar> CHISELED_STONE_PILLAR = registerBlockWithItem("chiseled_stone_pillar", StonePillar::new, BlockBehaviour.Properties
+            .ofFullCopy(Blocks.STONE));
 
     public static final DeferredBlock<CopperPedestal> COPPER_PEDESTAL = registerBlockWithItem("copper_pedestal",
             (properties) -> new CopperPedestal(WeatheringCopper.WeatherState.UNAFFECTED, properties), BlockBehaviour.Properties

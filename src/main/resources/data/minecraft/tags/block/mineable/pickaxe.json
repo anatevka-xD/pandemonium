@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "pandemonium:altar",
+    "pandemonium:stone_pillar",
+    "pandemonium:chiseled_stone_pillar",
     "pandemonium:copper_pedestal",
     "pandemonium:exposed_copper_pedestal",
     "pandemonium:weathered_copper_pedestal",

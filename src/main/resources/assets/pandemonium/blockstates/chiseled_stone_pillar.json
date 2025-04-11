@@ -1,0 +1,26 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "pandemonium:block/chiseled_stone_pillar"
+    },
+    "facing=east": {
+      "model": "pandemonium:block/chiseled_stone_pillar_horizontal",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "pandemonium:block/chiseled_stone_pillar_horizontal",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "pandemonium:block/chiseled_stone_pillar_horizontal",
+      "y": 180
+    },
+    "facing=up": {
+      "model": "pandemonium:block/chiseled_stone_pillar"
+    },
+    "facing=west": {
+      "model": "pandemonium:block/chiseled_stone_pillar_horizontal",
+      "y": 270
+    }
+  }
+}
