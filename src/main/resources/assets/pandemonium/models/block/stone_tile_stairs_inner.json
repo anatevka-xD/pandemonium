@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "pandemonium:block/stone_tiles",
+    "side": "pandemonium:block/stone_tiles",
+    "top": "pandemonium:block/stone_tiles"
+  }
+}

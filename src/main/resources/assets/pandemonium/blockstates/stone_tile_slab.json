@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "pandemonium:block/stone_tile_slab"
+    },
+    "type=double": {
+      "model": "pandemonium:block/stone_tiles"
+    },
+    "type=top": {
+      "model": "pandemonium:block/stone_tile_slab_top"
+    }
+  }
+}

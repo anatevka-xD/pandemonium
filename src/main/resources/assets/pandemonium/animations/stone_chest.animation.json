@@ -29,6 +29,11 @@
 						}
 					}
 				}
+			},
+			"sound_effects": {
+				"0.0": {
+					"effect": "pandemonium:stone_chest_open"
+				}
 			}
 		},
 		"chest_close.new": {
@@ -37,27 +42,38 @@
 			"bones": {
 				"chest_lid": {
 					"rotation": {
-						"0.5833": {
+						"0.7083": {
 							"vector": [-5, 0, 0],
 							"easing": "easeOutCirc"
 						},
-						"0.6667": {
+						"0.7917": {
 							"vector": [0, 0, 0]
 						}
 					},
 					"position": {
 						"0.0": {
+							"vector": [0, 0, 8]
+						},
+						"0.125": {
 							"vector": [0, 0, 8],
 							"easing": "easeInOutQuart"
 						},
-						"0.5": {
+						"0.625": {
 							"vector": [0, 0.5, 0],
 							"easing": "easeOutQuint"
 						},
-						"0.6667": {
+						"0.7917": {
 							"vector": [0, 0, 0]
 						}
 					}
+				}
+			},
+			"sound_effects": {
+				"0.125": {
+					"effect": "pandemonium:stone_chest_close"
+				},
+				"0.7917": {
+					"effect": "pandemonium:stone_chest_plink"
 				}
 			}
 		}

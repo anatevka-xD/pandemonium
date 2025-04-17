@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -23,12 +24,18 @@ public class ModBlocks {
             .strength(4f)
             .requiresCorrectToolForDrops()
             .sound(SoundType.NETHERITE_BLOCK));
+
     public static final DeferredBlock<StonePillar> STONE_PILLAR = registerBlockWithItem("stone_pillar", StonePillar::new, BlockBehaviour.Properties
             .ofFullCopy(Blocks.STONE));
     public static final DeferredBlock<StonePillar> CHISELED_STONE_PILLAR = registerBlockWithItem("chiseled_stone_pillar", StonePillar::new, BlockBehaviour.Properties
             .ofFullCopy(Blocks.STONE));
     public static final DeferredBlock<Block> STONE_TILES = registerBlockWithItem("stone_tiles", Block::new, BlockBehaviour.Properties
             .ofFullCopy(Blocks.STONE));
+    public static final DeferredBlock<StairBlock> STONE_TILE_STAIRS = registerBlockWithItem("stone_tile_stairs",
+            (properties) -> new StairBlock(ModBlocks.STONE_TILES.get().defaultBlockState(), properties), BlockBehaviour.Properties.ofFullCopy(Blocks.STONE));
+    public static final DeferredBlock<SlabBlock> STONE_TILE_SLAB = registerBlockWithItem("stone_tile_slab", SlabBlock::new, BlockBehaviour.Properties
+            .ofFullCopy(Blocks.STONE));
+
     public static final DeferredBlock<StoneChest> STONE_CHEST = registerBlockWithItem("stone_chest",
             StoneChest::new, BlockBehaviour.Properties
                     .ofFullCopy(Blocks.STONE)

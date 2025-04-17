@@ -29,6 +29,8 @@ public class ModCreativeTabs {
                         output.accept(ModBlocks.STONE_PILLAR);
                         output.accept(ModBlocks.CHISELED_STONE_PILLAR);
                         output.accept(ModBlocks.STONE_TILES);
+                        output.accept(ModBlocks.STONE_TILE_STAIRS);
+                        output.accept(ModBlocks.STONE_TILE_SLAB);
                         output.accept(ModBlocks.STONE_CHEST);
                         output.accept(ModBlocks.COPPER_PEDESTAL);
                         output.accept(ModBlocks.EXPOSED_COPPER_PEDESTAL);

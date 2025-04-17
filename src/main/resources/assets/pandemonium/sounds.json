@@ -1,0 +1,20 @@
+{
+  "stone_chest_open": {
+    "subtitle": "sounds.pandemonium.stone_chest_open",
+    "sounds": [
+      "pandemonium:stone_chest_open"
+    ]
+  },
+  "stone_chest_close": {
+  "subtitle": "sounds.pandemonium.stone_chest_close",
+  "sounds": [
+    "pandemonium:stone_chest_close"
+  ]
+},
+  "stone_chest_plink": {
+    "subtitle": "sounds.pandemonium.stone_chest_plink",
+    "sounds": [
+      "pandemonium:stone_chest_plink"
+    ]
+  }
+}

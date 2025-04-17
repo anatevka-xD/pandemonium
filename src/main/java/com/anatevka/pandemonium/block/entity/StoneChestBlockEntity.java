@@ -1,6 +1,7 @@
 package com.anatevka.pandemonium.block.entity;
 
 import com.anatevka.pandemonium.block.custom.StoneChest;
+import com.anatevka.pandemonium.sound.ModSounds;
 import net.minecraft.core.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -25,7 +26,11 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.animation.keyframe.event.builtin.AutoPlayingSoundKeyframeHandler;
+import software.bernie.geckolib.util.ClientUtil;
 import software.bernie.geckolib.util.GeckoLibUtil;
+
+import java.util.Objects;
 
 public class StoneChestBlockEntity extends BaseContainerBlockEntity implements Container, MenuProvider, Nameable, GeoBlockEntity {
     private NonNullList<ItemStack> items;
@@ -36,12 +41,10 @@ public class StoneChestBlockEntity extends BaseContainerBlockEntity implements C
         this.items = NonNullList.withSize(27, ItemStack.EMPTY);
         this.openersCounter = new ContainerOpenersCounter() {
             protected void onOpen(Level p_155062_, BlockPos p_155063_, BlockState p_155064_) {
-                StoneChestBlockEntity.this.playSound(p_155064_, SoundEvents.GRINDSTONE_USE);
                 StoneChestBlockEntity.this.updateBlockState(p_155064_, true);
             }
 
             protected void onClose(Level p_155072_, BlockPos p_155073_, BlockState p_155074_) {
-                StoneChestBlockEntity.this.playSound(p_155074_, SoundEvents.GRINDSTONE_USE);
                 StoneChestBlockEntity.this.updateBlockState(p_155074_, false);
             }
 
@@ -117,14 +120,6 @@ public class StoneChestBlockEntity extends BaseContainerBlockEntity implements C
         this.level.setBlock(this.getBlockPos(), (BlockState)state.setValue(StoneChest.OPEN, open), 3);
     }
 
-    void playSound(BlockState state, SoundEvent sound) {
-        Vec3i vec3i = ((Direction)state.getValue(StoneChest.FACING)).getUnitVec3i();
-        double d0 = (double)this.worldPosition.getX() + 0.5 + (double)vec3i.getX() / 2.0;
-        double d1 = (double)this.worldPosition.getY() + 0.5 + (double)vec3i.getY() / 2.0;
-        double d2 = (double)this.worldPosition.getZ() + 0.5 + (double)vec3i.getZ() / 2.0;
-        this.level.playSound((Player)null, d0, d1, d2, sound, SoundSource.BLOCKS, 0.5F, this.level.random.nextFloat() * 0.1F + 0.9F);
-    }
-
     /* Animation */
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
@@ -133,7 +128,23 @@ public class StoneChestBlockEntity extends BaseContainerBlockEntity implements C
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "chest_state", state -> PlayState.STOP)
                 .triggerableAnim("close", StoneChest.CLOSE_CHEST)
-                .triggerableAnim("open", StoneChest.OPEN_CHEST));
+                .triggerableAnim("open", StoneChest.OPEN_CHEST)
+                .setSoundKeyframeHandler(event -> {
+                    Player player = ClientUtil.getClientPlayer();
+
+                    if (player != null) {
+                        if (Objects.equals(event.getKeyframeData().getSound(), "pandemonium:stone_chest_close")) {
+                            this.level.playSound(player, this.getBlockPos(), ModSounds.STONE_CHEST_CLOSE.get(), SoundSource.BLOCKS);
+                        }
+                        if (Objects.equals(event.getKeyframeData().getSound(), "pandemonium:stone_chest_open")) {
+                            this.level.playSound(player, this.getBlockPos(), ModSounds.STONE_CHEST_OPEN.get(), SoundSource.BLOCKS);
+                        }
+                        if (Objects.equals(event.getKeyframeData().getSound(), "pandemonium:stone_chest_plink")) {
+                            this.level.playSound(player, this.getBlockPos(), ModSounds.STONE_CHEST_PLINK.get(), SoundSource.BLOCKS);
+                        }
+                    }
+                })
+        );
     }
 
     @Override

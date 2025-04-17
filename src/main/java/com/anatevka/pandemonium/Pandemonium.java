@@ -6,6 +6,7 @@ import com.anatevka.pandemonium.block.entity.renderer.CopperPedestalBlockEntityR
 import com.anatevka.pandemonium.block.entity.renderer.StoneChestBlockEntityRenderer;
 import com.anatevka.pandemonium.item.ModCreativeTabs;
 import com.anatevka.pandemonium.item.ModItems;
+import com.anatevka.pandemonium.sound.ModSounds;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -49,7 +50,7 @@ public class Pandemonium
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
-
+        ModSounds.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
