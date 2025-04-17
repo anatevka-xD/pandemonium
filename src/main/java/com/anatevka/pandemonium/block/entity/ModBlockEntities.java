@@ -2,7 +2,9 @@ package com.anatevka.pandemonium.block.entity;
 
 import com.anatevka.pandemonium.Pandemonium;
 import com.anatevka.pandemonium.block.ModBlocks;
+import com.anatevka.pandemonium.block.custom.StoneChest;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -24,6 +26,12 @@ public class ModBlockEntities {
                             ModBlocks.WAXED_EXPOSED_COPPER_PEDESTAL.get(),
                             ModBlocks.WAXED_WEATHERED_COPPER_PEDESTAL.get(),
                             ModBlocks.WAXED_OXIDIZED_COPPER_PEDESTAL.get()
+                    ));
+    public static final Supplier<BlockEntityType<StoneChestBlockEntity>> STONE_CHEST_BE =
+            BLOCK_ENTITIES.register("stone_chest_be",
+                    () -> new BlockEntityType<>(
+                            StoneChestBlockEntity::new,
+                            ModBlocks.STONE_CHEST.get()
                     ));
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

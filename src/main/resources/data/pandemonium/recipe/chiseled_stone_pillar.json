@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": "minecraft:chiseled_stone"
+    "#": "minecraft:chiseled_stone_bricks"
   },
   "pattern": [
     "#",

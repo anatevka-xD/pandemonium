@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pandemonium:stone_tiles"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "pandemonium:blocks/stone_tiles"
+}

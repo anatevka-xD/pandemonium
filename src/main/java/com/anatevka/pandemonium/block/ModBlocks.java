@@ -1,12 +1,11 @@
 package com.anatevka.pandemonium.block;
 
 import com.anatevka.pandemonium.Pandemonium;
-import com.anatevka.pandemonium.block.custom.CopperCreeperStatue;
-import com.anatevka.pandemonium.block.custom.CopperPedestal;
-import com.anatevka.pandemonium.block.custom.CopperVillagerStatue;
-import com.anatevka.pandemonium.block.custom.StonePillar;
+import com.anatevka.pandemonium.block.custom.*;
 import com.anatevka.pandemonium.item.ModItems;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -28,6 +27,12 @@ public class ModBlocks {
             .ofFullCopy(Blocks.STONE));
     public static final DeferredBlock<StonePillar> CHISELED_STONE_PILLAR = registerBlockWithItem("chiseled_stone_pillar", StonePillar::new, BlockBehaviour.Properties
             .ofFullCopy(Blocks.STONE));
+    public static final DeferredBlock<Block> STONE_TILES = registerBlockWithItem("stone_tiles", Block::new, BlockBehaviour.Properties
+            .ofFullCopy(Blocks.STONE));
+    public static final DeferredBlock<StoneChest> STONE_CHEST = registerBlockWithItem("stone_chest",
+            StoneChest::new, BlockBehaviour.Properties
+                    .ofFullCopy(Blocks.STONE)
+                    .noOcclusion());
 
     public static final DeferredBlock<CopperPedestal> COPPER_PEDESTAL = registerBlockWithItem("copper_pedestal",
             (properties) -> new CopperPedestal(WeatheringCopper.WeatherState.UNAFFECTED, properties), BlockBehaviour.Properties
