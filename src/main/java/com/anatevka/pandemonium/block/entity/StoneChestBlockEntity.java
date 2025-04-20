@@ -1,12 +1,11 @@
 package com.anatevka.pandemonium.block.entity;
 
-import com.anatevka.pandemonium.block.custom.StoneChest;
-import com.anatevka.pandemonium.sound.ModSounds;
+import com.anatevka.pandemonium.block.StoneChest;
+import com.anatevka.pandemonium.registry.BlockEntityRegistry;
+import com.anatevka.pandemonium.registry.SoundRegistry;
 import net.minecraft.core.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
@@ -18,15 +17,12 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
+import software.bernie.geckolib.animatable.SingletonGeoAnimatable;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.animation.keyframe.event.builtin.AutoPlayingSoundKeyframeHandler;
 import software.bernie.geckolib.util.ClientUtil;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
@@ -37,7 +33,7 @@ public class StoneChestBlockEntity extends BaseContainerBlockEntity implements C
     private final ContainerOpenersCounter openersCounter;
 
     public StoneChestBlockEntity(BlockPos pos, BlockState blockState) {
-        super(ModBlockEntities.STONE_CHEST_BE.get(), pos, blockState);
+        super(BlockEntityRegistry.STONE_CHEST_BE.get(), pos, blockState);
         this.items = NonNullList.withSize(27, ItemStack.EMPTY);
         this.openersCounter = new ContainerOpenersCounter() {
             protected void onOpen(Level p_155062_, BlockPos p_155063_, BlockState p_155064_) {
@@ -60,6 +56,7 @@ public class StoneChestBlockEntity extends BaseContainerBlockEntity implements C
                 }
             }
         };
+        SingletonGeoAnimatable.registerSyncedAnimatable(this);
     }
 
     protected void saveAdditional(CompoundTag p_187459_, HolderLookup.Provider p_323686_) {
@@ -134,13 +131,13 @@ public class StoneChestBlockEntity extends BaseContainerBlockEntity implements C
 
                     if (player != null) {
                         if (Objects.equals(event.getKeyframeData().getSound(), "pandemonium:stone_chest_close")) {
-                            this.level.playSound(player, this.getBlockPos(), ModSounds.STONE_CHEST_CLOSE.get(), SoundSource.BLOCKS);
+                            this.level.playSound(player, this.getBlockPos(), SoundRegistry.STONE_CHEST_CLOSE.get(), SoundSource.BLOCKS);
                         }
                         if (Objects.equals(event.getKeyframeData().getSound(), "pandemonium:stone_chest_open")) {
-                            this.level.playSound(player, this.getBlockPos(), ModSounds.STONE_CHEST_OPEN.get(), SoundSource.BLOCKS);
+                            this.level.playSound(player, this.getBlockPos(), SoundRegistry.STONE_CHEST_OPEN.get(), SoundSource.BLOCKS);
                         }
                         if (Objects.equals(event.getKeyframeData().getSound(), "pandemonium:stone_chest_plink")) {
-                            this.level.playSound(player, this.getBlockPos(), ModSounds.STONE_CHEST_PLINK.get(), SoundSource.BLOCKS);
+                            this.level.playSound(player, this.getBlockPos(), SoundRegistry.STONE_CHEST_PLINK.get(), SoundSource.BLOCKS);
                         }
                     }
                 })

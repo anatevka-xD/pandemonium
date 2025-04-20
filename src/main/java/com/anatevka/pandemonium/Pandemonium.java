@@ -1,12 +1,14 @@
 package com.anatevka.pandemonium;
 
-import com.anatevka.pandemonium.block.ModBlocks;
-import com.anatevka.pandemonium.block.entity.ModBlockEntities;
-import com.anatevka.pandemonium.block.entity.renderer.CopperPedestalBlockEntityRenderer;
-import com.anatevka.pandemonium.block.entity.renderer.StoneChestBlockEntityRenderer;
-import com.anatevka.pandemonium.item.ModCreativeTabs;
-import com.anatevka.pandemonium.item.ModItems;
-import com.anatevka.pandemonium.sound.ModSounds;
+import com.anatevka.pandemonium.client.renderer.block.EscritoireBlockEntityRenderer;
+import com.anatevka.pandemonium.registry.BlockRegistry;
+import com.anatevka.pandemonium.registry.BlockEntityRegistry;
+import com.anatevka.pandemonium.client.renderer.block.CopperPedestalBlockEntityRenderer;
+import com.anatevka.pandemonium.client.renderer.block.GargoyleStatueBlockEntityRenderer;
+import com.anatevka.pandemonium.client.renderer.block.StoneChestBlockEntityRenderer;
+import com.anatevka.pandemonium.registry.TabRegistry;
+import com.anatevka.pandemonium.registry.ItemRegistry;
+import com.anatevka.pandemonium.registry.SoundRegistry;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -46,11 +48,11 @@ public class Pandemonium
         // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
         NeoForge.EVENT_BUS.register(this);
 
-        ModCreativeTabs.register(modEventBus);
-        ModItems.register(modEventBus);
-        ModBlocks.register(modEventBus);
-        ModBlockEntities.register(modEventBus);
-        ModSounds.register(modEventBus);
+        TabRegistry.register(modEventBus);
+        ItemRegistry.register(modEventBus);
+        BlockRegistry.register(modEventBus);
+        BlockEntityRegistry.register(modEventBus);
+        SoundRegistry.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
@@ -76,7 +78,7 @@ public class Pandemonium
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
-            event.accept(ModBlocks.FLESH_BLOCK);
+            event.accept(BlockRegistry.FLESH_BLOCK);
         }
     }
 
@@ -101,8 +103,11 @@ public class Pandemonium
         }
         @SubscribeEvent
         public static void registerBER(EntityRenderersEvent.RegisterRenderers event) {
-            event.registerBlockEntityRenderer(ModBlockEntities.COPPER_PEDESTAL_BE.get(), CopperPedestalBlockEntityRenderer::new);
-            event.registerBlockEntityRenderer(ModBlockEntities.STONE_CHEST_BE.get(), StoneChestBlockEntityRenderer::new);
+            event.registerBlockEntityRenderer(BlockEntityRegistry.COPPER_PEDESTAL_BE.get(), CopperPedestalBlockEntityRenderer::new);
+            event.registerBlockEntityRenderer(BlockEntityRegistry.STONE_CHEST_BE.get(), StoneChestBlockEntityRenderer::new);
+            event.registerBlockEntityRenderer(BlockEntityRegistry.GARGOYLE_STATUE_BE.get(), GargoyleStatueBlockEntityRenderer::new);
+            event.registerBlockEntityRenderer(BlockEntityRegistry.ESCRITOIRE_BE.get(), EscritoireBlockEntityRenderer::new);
+
         }
     }
 }

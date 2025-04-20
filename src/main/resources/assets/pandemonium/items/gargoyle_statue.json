@@ -1,7 +1,7 @@
 {
   "model": {
     "type": "minecraft:special",
-    "base": "pandemonium:item/stone_chest",
+    "base": "pandemonium:item/gargoyle_statue",
     "model": {
       "type": "geckolib:geckolib"
     }

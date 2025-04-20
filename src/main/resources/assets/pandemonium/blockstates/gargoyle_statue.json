@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "pandemonium:block/gargoyle_statue"
+    },
+    "facing=south": {
+      "model": "pandemonium:block/gargoyle_statue",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "pandemonium:block/gargoyle_statue",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "pandemonium:block/gargoyle_statue",
+      "y": 90
+    }
+  }
+}

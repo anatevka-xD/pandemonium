@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pandemonium:stone_tiles",
+  "result": {
+    "count": 1,
+    "id": "pandemonium:chipped_stone_tiles"
+  }
+}

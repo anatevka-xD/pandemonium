@@ -1,5 +1,6 @@
 package com.anatevka.pandemonium.block.entity;
 
+import com.anatevka.pandemonium.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -30,7 +31,7 @@ public class CopperPedestalBlockEntity extends BlockEntity {
     };
     private float rotation;
     public CopperPedestalBlockEntity(BlockPos pos, BlockState blockState) {
-        super(ModBlockEntities.COPPER_PEDESTAL_BE.get(), pos, blockState);
+        super(BlockEntityRegistry.COPPER_PEDESTAL_BE.get(), pos, blockState);
     }
     public float getRenderingRotation() {
         rotation += 0.25f;

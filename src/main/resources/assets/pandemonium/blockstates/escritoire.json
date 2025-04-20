@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "pandemonium:block/escritoire"
+    },
+    "facing=south": {
+      "model": "pandemonium:block/escritoire",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "pandemonium:block/escritoire",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "pandemonium:block/escritoire",
+      "y": 90
+    }
+  }
+}
