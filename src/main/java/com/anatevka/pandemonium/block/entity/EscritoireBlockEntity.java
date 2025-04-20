@@ -40,14 +40,13 @@ public class EscritoireBlockEntity extends BlockEntity implements GeoBlockEntity
                 this.deskOpen = false;
                 triggerAnim("escritoire_state", "close");
             } else {
+                this.deskOpen = true;
                 triggerAnim("escritoire_state", "open");
             }
         } else {
             if (player != null) {
                 this.deskOpen = true;
                 triggerAnim("escritoire_state", "open");
-            } else {
-                triggerAnim("escritoire_state", "close");
             }
         }
     }
@@ -58,7 +57,7 @@ public class EscritoireBlockEntity extends BlockEntity implements GeoBlockEntity
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "escritoire_state", state -> PlayState.CONTINUE)
+        controllers.add(new AnimationController<>(this, "escritoire_state", state -> PlayState.STOP)
                 .triggerableAnim("close", Escritoire.ESCRITOIRE_CLOSE)
                 .triggerableAnim("open", Escritoire.ESCRITOIRE_OPEN)
         );

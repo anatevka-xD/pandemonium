@@ -89,7 +89,7 @@ public class Escritoire extends HorizontalDirectionalBlock implements EntityBloc
         return RenderShape.INVISIBLE;
     }
 
-    public static final RawAnimation ESCRITOIRE_OPEN = RawAnimation.begin().thenPlay("escritoire.open");
-    public static final RawAnimation ESCRITOIRE_CLOSE = RawAnimation.begin().thenPlay("escritoire.close");
+    public static final RawAnimation ESCRITOIRE_OPEN = RawAnimation.begin().thenPlay("escritoire.animation.open");
+    public static final RawAnimation ESCRITOIRE_CLOSE = RawAnimation.begin().thenPlay("escritoire.animation.close");
 }
 
