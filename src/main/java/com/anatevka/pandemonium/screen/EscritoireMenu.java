@@ -6,6 +6,7 @@ import com.anatevka.pandemonium.registry.BlockRegistry;
 import com.anatevka.pandemonium.registry.MenuRegistry;
 import com.anatevka.pandemonium.registry.ResearchRegistry;
 import com.anatevka.pandemonium.research.EscritoireSyncData;
+import com.anatevka.pandemonium.research.ResearchMaterial;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
@@ -47,7 +48,6 @@ public class EscritoireMenu extends AbstractContainerMenu {
         this.addSlot(new SlotItemHandler(inv, Escritoire.inputSlotIndex, -17, 3));
         this.addSlot(new SlotItemHandler(inv, Escritoire.outputSlotIndex, 177, 3));
         for (int i = 0; i<ResearchRegistry.RESEARCH_MATERIALS.getEntries().size()-1; i++) {
-
             this.addSlot(new SlotItemHandler(inv, i + Escritoire.startIndex, -17, 26 + i * 26));
         }
         this.addDataSlots(data);
@@ -63,8 +63,7 @@ public class EscritoireMenu extends AbstractContainerMenu {
     }
     private void addPlayerHotbar(Inventory playerInventory) {for (int i = 0; i < 9; ++i) {this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 187));}
     }
-
-    public int getAmount(){
-        return data.get(0);
+    public int getAmount(int index){
+        return data.get(index);
     }
 }

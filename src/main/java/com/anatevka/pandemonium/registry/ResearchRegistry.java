@@ -32,19 +32,19 @@ public final class ResearchRegistry {
             properties -> new ResearchMaterial(
                     ResourceLocation.fromNamespaceAndPath(Pandemonium.MODID, "textures/gui/sprites/escritoire/slot_paper.png"),
                     ResourceLocation.fromNamespaceAndPath(Pandemonium.MODID, "textures/gui/sprites/escritoire/slot_paper_unused.png"),
-                    Items.PAPER, TagRegistry.Items.WANTS_PAPER,
+                    Items.PAPER, TagRegistry.Items.MATERIAL_PAPER,
                     0, 0xffc0a999));
     public static final Supplier<ResearchMaterial> INK = RESEARCH_MATERIALS.register("ink",
             properties -> new ResearchMaterial(
                     ResourceLocation.fromNamespaceAndPath(Pandemonium.MODID, "textures/gui/sprites/escritoire/slot_ink.png"),
                     ResourceLocation.fromNamespaceAndPath(Pandemonium.MODID, "textures/gui/sprites/escritoire/slot_ink_unused.png"),
-                    Items.INK_SAC, TagRegistry.Items.WANTS_INK,
+                    Items.INK_SAC, TagRegistry.Items.MATERIAL_INK,
                     1, 0xff706ead));
     public static final Supplier<ResearchMaterial> AMETHYST = RESEARCH_MATERIALS.register("amethyst",
             properties -> new ResearchMaterial(
                     ResourceLocation.fromNamespaceAndPath(Pandemonium.MODID, "textures/gui/sprites/escritoire/slot_amethyst.png"),
                     ResourceLocation.fromNamespaceAndPath(Pandemonium.MODID, "textures/gui/sprites/escritoire/slot_amethyst_unused.png"),
-                    Items.AMETHYST_SHARD, TagRegistry.Items.WANTS_AMETHYST,
+                    Items.AMETHYST_SHARD, TagRegistry.Items.MATERIAL_AMETHYST,
                     2, 0xffb38ef3));
 
     public static void register(IEventBus eventBus) {

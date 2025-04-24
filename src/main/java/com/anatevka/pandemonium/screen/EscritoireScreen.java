@@ -66,7 +66,7 @@ public class EscritoireScreen extends AbstractContainerScreen<EscritoireMenu> {
             ResearchMaterial researchMaterial = researchMaterialIterator.next().get();
             if (researchMaterial.index() >= 0) {
                 renderMaterialSlot(graphics, researchMaterial, outputItem.is(researchMaterial.tag()), -97, -49 + researchMaterial.index() * 26);
-                renderMaterialBar(graphics, this.menu.getAmount(), -97, -35 + researchMaterial.index() * 26, researchMaterial.color());
+                renderMaterialBar(graphics, this.menu.getAmount(researchMaterial.index()), -97, -35 + researchMaterial.index() * 26, researchMaterial.color());
             }
         }
     }

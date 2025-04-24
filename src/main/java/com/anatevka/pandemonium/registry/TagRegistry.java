@@ -23,6 +23,9 @@ public class TagRegistry {
         public static final TagKey<Item> WANTS_PAPER = createTag("wants_paper");
         public static final TagKey<Item> WANTS_INK = createTag("wants_ink");
         public static final TagKey<Item> WANTS_AMETHYST = createTag("wants_amethyst");
+        public static final TagKey<Item> MATERIAL_PAPER = createTag("material_paper");
+        public static final TagKey<Item> MATERIAL_INK = createTag("material_ink");
+        public static final TagKey<Item> MATERIAL_AMETHYST = createTag("material_amethyst");
 
         private static TagKey<Item> createTag(String name) {
             return ItemTags.create(ResourceLocation.fromNamespaceAndPath(Pandemonium.MODID, name));

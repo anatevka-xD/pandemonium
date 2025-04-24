@@ -1,7 +1,6 @@
 package com.anatevka.pandemonium.block.entity;
 
 import com.anatevka.pandemonium.block.Escritoire;
-import com.anatevka.pandemonium.research.EscritoireSyncData;
 import com.anatevka.pandemonium.research.ResearchMaterialStackHandler;
 import com.anatevka.pandemonium.registry.BlockEntityRegistry;
 import com.anatevka.pandemonium.registry.ResearchRegistry;
@@ -36,7 +35,7 @@ import java.util.Objects;
 public class EscritoireBlockEntity extends BlockEntity implements GeoBlockEntity{
     public boolean deskOpen = false;
 
-    public final ResearchMaterialStackHandler researchMaterialStackHandler = new ResearchMaterialStackHandler(ResearchRegistry.RESEARCH_MATERIALS.getEntries().size());
+    public final ResearchMaterialStackHandler researchMaterialStackHandler = new ResearchMaterialStackHandler(ResearchRegistry.RESEARCH_MATERIALS.getEntries().size()-1);
     public final ItemStackHandler itemStackHandler = new ItemStackHandler(2 + ResearchRegistry.REGISTRY.size()-1) {
         @Override
         protected int getStackLimit(int slot, ItemStack stack) {if (slot == 0 || slot == 1 ) {return 1;} return super.getStackLimit(slot, stack);}
@@ -51,17 +50,11 @@ public class EscritoireBlockEntity extends BlockEntity implements GeoBlockEntity
 
     /* Inventory */
 
-    public void clearContents() {
-        for(int i = 0; i < itemStackHandler.getSlots(); i++) {
-            itemStackHandler.setStackInSlot(i, ItemStack.EMPTY);
-        }
-    }
+    public void clearContents() {for(int i = 0; i < itemStackHandler.getSlots(); i++) {itemStackHandler.setStackInSlot(i, ItemStack.EMPTY);}}
 
     public void drops() {
         SimpleContainer inv = new SimpleContainer(itemStackHandler.getSlots());
-        for(int i = 0; i < itemStackHandler.getSlots(); i++) {
-            inv.setItem(i, itemStackHandler.getStackInSlot(i));
-        }
+        for(int i = 0; i < itemStackHandler.getSlots(); i++) {inv.setItem(i, itemStackHandler.getStackInSlot(i));}
         Containers.dropContents(this.level, this.worldPosition, inv);
     }
 
@@ -69,24 +62,26 @@ public class EscritoireBlockEntity extends BlockEntity implements GeoBlockEntity
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         tag.put("escritoire_inventory", itemStackHandler.serializeNBT(registries));
+        for (int i = 0; i<ResearchRegistry.REGISTRY.size()-1; i++) {
+            tag.putInt(researchMaterialStackHandler.getStackInSlot(i).getResearchMaterial().toString(), researchMaterialStackHandler.getStackInSlot(i).getAmount());
+        }
     }
 
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
         itemStackHandler.deserializeNBT(registries, tag.getCompound("escritoire_inventory"));
+        for (int i = 0; i<researchMaterialStackHandler.getSize(); i++) {
+            this.researchMaterialStackHandler.setStackSize(i, tag.getInt(researchMaterialStackHandler.getStackMaterial(i).toString()));
+        }
     }
 
     @Nullable
     @Override
-    public Packet<ClientGamePacketListener> getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
-    }
+    public Packet<ClientGamePacketListener> getUpdatePacket() {return ClientboundBlockEntityDataPacket.create(this);}
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
-        return saveWithoutMetadata(registries);
-    }
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {return saveWithoutMetadata(registries);}
 
     /* Animation */
 
@@ -133,5 +128,16 @@ public class EscritoireBlockEntity extends BlockEntity implements GeoBlockEntity
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.cache;
+    }
+
+    public void eatItems() {
+        for(int i = 0; i<researchMaterialStackHandler.getSize(); i++){
+            if(itemStackHandler.getStackInSlot(i+2).is(researchMaterialStackHandler.getStackMaterial(i).tag())) {
+                if(researchMaterialStackHandler.getStackSize(i) <= 95) {
+                    itemStackHandler.extractItem(i + 2, 1, false);
+                    researchMaterialStackHandler.increaseStackSize(i, 5);
+                }
+            }
+        }
     }
 }

@@ -13,15 +13,14 @@ public class EscritoireSyncData implements ContainerData {
 
     @Override
     public int get(int i) {
-        System.out.println("Oke dokey");
         return te.researchMaterialStackHandler.getStackInSlot(i).getAmount();
     }
     @Override
-    public void set(int i, int i1) {
+    public void set(int i, int amount) {
+        te.researchMaterialStackHandler.setStackInSlot(i, new ResearchMaterialStack(amount,te.researchMaterialStackHandler.getStackInSlot(i).getResearchMaterial()));
     }
     @Override
     public int getCount() {
-        return 0;
+        return te.researchMaterialStackHandler.getSize();
     }
-
 }

@@ -77,9 +77,11 @@ public class Escritoire extends HorizontalDirectionalBlock implements EntityBloc
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {return new EscritoireBlockEntity(blockPos, blockState);}
 
     protected void tick(Level level, BlockPos pos) {
-        BlockEntity blockentity = level.getBlockEntity(pos);
-        if (blockentity instanceof EscritoireBlockEntity) {
-            ((EscritoireBlockEntity)blockentity).animateState(pos, level);
+        BlockEntity be = level.getBlockEntity(pos);
+
+        if (be instanceof EscritoireBlockEntity escritoireBlockEntity) {
+            escritoireBlockEntity.eatItems();
+            escritoireBlockEntity.animateState(pos, level);
         }
     }
 
@@ -100,10 +102,7 @@ public class Escritoire extends HorizontalDirectionalBlock implements EntityBloc
         BlockEntity be = level.getBlockEntity(pos);
         if (be instanceof EscritoireBlockEntity escritoireBlockEntity)
         {
-            if (player instanceof ServerPlayer serverPlayer)
-            {
-                serverPlayer.openMenu(EscritoireMenu.getServerMenuProvider(escritoireBlockEntity, pos));
-            }
+            if (player instanceof ServerPlayer serverPlayer) {serverPlayer.openMenu(EscritoireMenu.getServerMenuProvider(escritoireBlockEntity, pos));}
             return InteractionResult.SUCCESS;
         }
         return super.useWithoutItem(state, level, pos, player, hit);
