@@ -1,14 +1,11 @@
 package com.anatevka.pandemonium;
 
 import com.anatevka.pandemonium.client.renderer.block.EscritoireBlockEntityRenderer;
-import com.anatevka.pandemonium.registry.BlockRegistry;
-import com.anatevka.pandemonium.registry.BlockEntityRegistry;
+import com.anatevka.pandemonium.registry.*;
 import com.anatevka.pandemonium.client.renderer.block.CopperPedestalBlockEntityRenderer;
 import com.anatevka.pandemonium.client.renderer.block.GargoyleStatueBlockEntityRenderer;
 import com.anatevka.pandemonium.client.renderer.block.StoneChestBlockEntityRenderer;
-import com.anatevka.pandemonium.registry.TabRegistry;
-import com.anatevka.pandemonium.registry.ItemRegistry;
-import com.anatevka.pandemonium.registry.SoundRegistry;
+import com.anatevka.pandemonium.screen.EscritoireScreen;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -24,9 +21,11 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.neoforged.neoforge.registries.NewRegistryEvent;
 import org.slf4j.Logger;
 
 @Mod(Pandemonium.MODID)
@@ -36,7 +35,6 @@ public class Pandemonium
     public static final String MODID = "pandemonium";
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
-    // Create a Deferred Register to hold Blocks which will all be registered under the "pandemonium" namespace
 
     public Pandemonium(IEventBus modEventBus, ModContainer modContainer)
     {
@@ -53,6 +51,8 @@ public class Pandemonium
         BlockRegistry.register(modEventBus);
         BlockEntityRegistry.register(modEventBus);
         SoundRegistry.register(modEventBus);
+        MenuRegistry.register(modEventBus);
+        ResearchRegistry.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
@@ -107,7 +107,16 @@ public class Pandemonium
             event.registerBlockEntityRenderer(BlockEntityRegistry.STONE_CHEST_BE.get(), StoneChestBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(BlockEntityRegistry.GARGOYLE_STATUE_BE.get(), GargoyleStatueBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(BlockEntityRegistry.ESCRITOIRE_BE.get(), EscritoireBlockEntityRenderer::new);
+        }
 
+        @SubscribeEvent
+        private static void registerScreens(RegisterMenuScreensEvent event) {
+            event.register(MenuRegistry.ESCRITOIRE_MENU.get(), EscritoireScreen::new);
+        }
+
+        @SubscribeEvent
+        private static void registerRegistries(NewRegistryEvent event) {
+            event.register(ResearchRegistry.REGISTRY);
         }
     }
 }

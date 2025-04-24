@@ -16,6 +16,8 @@ public final class SoundRegistry {
     public static final Supplier<SoundEvent> STONE_CHEST_OPEN = registerSoundEvent("stone_chest_open");
     public static final Supplier<SoundEvent> STONE_CHEST_CLOSE = registerSoundEvent("stone_chest_close");
     public static final Supplier<SoundEvent> STONE_CHEST_PLINK = registerSoundEvent("stone_chest_plink");
+    public static final Supplier<SoundEvent> ESCRITOIRE_CLOSE = registerSoundEvent("escritoire_close");
+    public static final Supplier<SoundEvent> ESCRITOIRE_OPEN = registerSoundEvent("escritoire_open");
 
     private static Supplier<SoundEvent> registerSoundEvent(String name) {
         ResourceLocation id = ResourceLocation.fromNamespaceAndPath(Pandemonium.MODID, name);

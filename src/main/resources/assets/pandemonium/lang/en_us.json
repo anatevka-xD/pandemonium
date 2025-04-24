@@ -4,6 +4,7 @@
   "item.pandemonium.grimoire": "Grimoire",
   "item.pandemonium.lost_page": "Lost Page",
   "item.pandemonium.tattered_page": "Tattered Page",
+  "item.pandemonium.research_page": "Research Page",
   "block.pandemonium.flesh_block": "Block of Flesh",
   "block.pandemonium.altar": "Altar",
   "block.pandemonium.stone_pillar": "Stone Pillar",
@@ -45,5 +46,8 @@
   "tab.pandemonium.pandemonium": "Pandemonium",
   "sounds.pandemonium.stone_chest_open": "Stone Chest opens",
   "sounds.pandemonium.stone_chest_close": "Stone Chest closes",
-  "sounds.pandemonium.stone_chest_plink": "Stone Chest plinks"
+  "sounds.pandemonium.stone_chest_plink": "Stone Chest plinks",
+  "sounds.pandemonium.escritoire_close": "Escritoire closes",
+  "sounds.pandemonium.escritoire_open": "Escritoire opens",
+  "container.pandemonium.escritoire": "Research Table"
 }

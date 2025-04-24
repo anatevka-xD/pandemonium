@@ -2,12 +2,8 @@ package com.anatevka.pandemonium.client.model.block;
 
 import com.anatevka.pandemonium.Pandemonium;
 import com.anatevka.pandemonium.block.entity.EscritoireBlockEntity;
-import com.anatevka.pandemonium.block.entity.GargoyleStatueBlockEntity;
-import com.anatevka.pandemonium.block.entity.StoneChestBlockEntity;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.model.DefaultedBlockGeoModel;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoRenderer;
 

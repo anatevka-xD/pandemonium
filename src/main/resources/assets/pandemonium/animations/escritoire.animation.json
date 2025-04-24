@@ -180,6 +180,11 @@
 						}
 					}
 				}
+			},
+			"sound_effects": {
+				"0.0": {
+					"effect": "pandemonium:escritoire_open"
+				}
 			}
 		},
 		"escritoire.animation.close": {
@@ -376,6 +381,11 @@
 							"easing": "easeInOutExpo"
 						}
 					}
+				}
+			},
+			"sound_effects": {
+				"0.0": {
+					"effect": "pandemonium:escritoire_close"
 				}
 			}
 		}

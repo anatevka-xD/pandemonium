@@ -16,5 +16,17 @@
     "sounds": [
       "pandemonium:stone_chest_plink"
     ]
+  },
+  "escritoire_open": {
+    "subtitle": "sounds.pandemonium.escritoire_open",
+    "sounds": [
+      "pandemonium:escritoire_open"
+    ]
+  },
+  "escritoire_close": {
+    "subtitle": "sounds.pandemonium.escritoire_close",
+    "sounds": [
+      "pandemonium:escritoire_close"
+    ]
   }
 }

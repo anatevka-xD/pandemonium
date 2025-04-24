@@ -5,7 +5,6 @@ import com.anatevka.pandemonium.block.entity.CopperPedestalBlockEntity;
 import com.anatevka.pandemonium.block.entity.EscritoireBlockEntity;
 import com.anatevka.pandemonium.block.entity.GargoyleStatueBlockEntity;
 import com.anatevka.pandemonium.block.entity.StoneChestBlockEntity;
-import com.anatevka.pandemonium.registry.BlockRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;

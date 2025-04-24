@@ -2,6 +2,7 @@ package com.anatevka.pandemonium.registry;
 
 import com.anatevka.pandemonium.Pandemonium;
 import com.anatevka.pandemonium.block.*;
+import com.anatevka.pandemonium.block.Escritoire;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.bus.api.IEventBus;
