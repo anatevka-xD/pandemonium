@@ -6,8 +6,8 @@ import com.anatevka.pandemonium.registry.BlockRegistry;
 import com.anatevka.pandemonium.registry.MenuRegistry;
 import com.anatevka.pandemonium.registry.ResearchRegistry;
 import com.anatevka.pandemonium.research.EscritoireSyncData;
-import com.anatevka.pandemonium.research.ResearchMaterial;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
@@ -22,6 +22,8 @@ import net.neoforged.neoforge.items.SlotItemHandler;
 public class EscritoireMenu extends AbstractContainerMenu {
     private final ContainerLevelAccess access;
     private final ContainerData data;
+    public int cipherSlot = 0;
+    public NonNullList<Integer> cipherState = NonNullList.of(0, 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25);
 
     public static final String TITLE = "container.pandemonium.escritoire";
 

@@ -34,6 +34,13 @@ public class Images {
     public static final GuiImage MATERIAL_AMETHYST = new GuiImage(ResourceLocation.fromNamespaceAndPath(Pandemonium.MODID,
             "textures/gui/sprites/escritoire/slot_amethyst.png"),
             18,18,0, 0);
+    public static final GuiImage CIPHER_SLOT = new GuiImage(ResourceLocation.fromNamespaceAndPath(Pandemonium.MODID,
+            "textures/gui/sprites/escritoire/cipher_slot_selected.png"),
+            7,54,0, 0);
+    public static final GuiImage TEXT_SCROLLER = new GuiImage(ResourceLocation.fromNamespaceAndPath(Pandemonium.MODID,
+            "textures/gui/sprites/escritoire/text_scroller.png"),
+            6,41,0, 0);
+
 
     public static class GuiImage {
         private final ResourceLocation image;
