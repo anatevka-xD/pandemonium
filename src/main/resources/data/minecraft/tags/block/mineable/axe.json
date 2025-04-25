@@ -1,6 +1,14 @@
 {
   "replace": false,
   "values": [
-    "pandemonium:escritoire"
+    "pandemonium:escritoire",
+    "pandemonium:oak_shelf",
+    "pandemonium:dark_oak_shelf",
+    "pandemonium:spruce_shelf",
+    "pandemonium:acacia_shelf",
+    "pandemonium:cherry_shelf",
+    "pandemonium:birch_shelf",
+    "pandemonium:mangrove_shelf",
+    "pandemonium:jungle_shelf"
   ]
 }

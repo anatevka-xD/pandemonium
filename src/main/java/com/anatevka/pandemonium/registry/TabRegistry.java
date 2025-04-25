@@ -28,6 +28,14 @@ public class TabRegistry {
                         output.accept(ItemRegistry.RESEARCH_PAGE);
                         output.accept(BlockRegistry.FLESH_BLOCK);
                         output.accept(BlockRegistry.ALTAR);
+                        output.accept(BlockRegistry.OAK_SHELF);
+                        output.accept(BlockRegistry.DARK_OAK_SHELF);
+                        output.accept(BlockRegistry.CHERRY_SHELF);
+                        output.accept(BlockRegistry.SPRUCE_SHELF);
+                        output.accept(BlockRegistry.MANGROVE_SHELF);
+                        output.accept(BlockRegistry.BIRCH_SHELF);
+                        output.accept(BlockRegistry.JUNGLE_SHELF);
+                        output.accept(BlockRegistry.ACACIA_SHELF);
                         output.accept(BlockRegistry.STONE_PILLAR);
                         output.accept(BlockRegistry.CHISELED_STONE_PILLAR);
                         output.accept(BlockRegistry.STONE_TILES);

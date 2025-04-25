@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "pandemonium:block/dark_oak_shelf"
+    },
+    "facing=south": {
+      "model": "pandemonium:block/dark_oak_shelf"
+    },
+    "facing=west": {
+      "model": "pandemonium:block/dark_oak_shelf",
+      "y": 90
+    },
+    "facing=east": {
+      "model": "pandemonium:block/dark_oak_shelf",
+      "y": 90
+    }
+  }
+}

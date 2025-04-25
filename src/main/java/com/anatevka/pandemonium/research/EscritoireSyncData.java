@@ -1,6 +1,7 @@
 package com.anatevka.pandemonium.research;
 
 import com.anatevka.pandemonium.block.entity.EscritoireBlockEntity;
+import net.minecraft.core.NonNullList;
 import net.minecraft.world.inventory.ContainerData;
 
 public class EscritoireSyncData implements ContainerData {
@@ -17,7 +18,7 @@ public class EscritoireSyncData implements ContainerData {
     }
     @Override
     public void set(int i, int amount) {
-        te.researchMaterialStackHandler.setStackInSlot(i, new ResearchMaterialStack(amount,te.researchMaterialStackHandler.getStackInSlot(i).getResearchMaterial()));
+        te.researchMaterialStackHandler.setStackInSlot(i, new ResearchMaterialStack(amount, te.researchMaterialStackHandler.getStackInSlot(i).getResearchMaterial()));
     }
     @Override
     public int getCount() {

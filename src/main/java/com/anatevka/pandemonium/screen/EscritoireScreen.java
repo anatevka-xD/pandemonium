@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.Iterator;
@@ -36,6 +37,7 @@ public class EscritoireScreen extends AbstractContainerScreen<EscritoireMenu> {
             this.menu.cipherState.set(this.menu.cipherSlot, this.menu.cipherState.get(this.menu.cipherSlot)+1 > 25 ? 0 : this.menu.cipherState.get(this.menu.cipherSlot)+1);
         }
 
+        this.menu.setRemoteSlot(37, new ItemStack(Items.PAPER,1));
         return super.keyPressed(key, scancode, mods);
     }
 
@@ -129,6 +131,14 @@ public class EscritoireScreen extends AbstractContainerScreen<EscritoireMenu> {
                     this.menu.cipherState.get(i)*6, 0,
                     Images.TEXT_SCROLLER.getWidth(), Images.TEXT_SCROLLER.getHeight(),
                     156, 41
+            );
+            graphics.blit(
+                    RenderType::guiTextured,
+                    Images.RUNES.getImage(),
+                    Images.RUNES.getLeftPos(this.width) + i * 6 - 75 , Images.RUNES.getTopPos(this.height) - 8,
+                    i*6, 0,
+                    Images.RUNES.getWidth(), Images.RUNES.getHeight(),
+                    156, 7
             );
         }
     }

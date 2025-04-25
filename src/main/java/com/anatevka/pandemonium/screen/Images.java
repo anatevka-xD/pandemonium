@@ -40,6 +40,9 @@ public class Images {
     public static final GuiImage TEXT_SCROLLER = new GuiImage(ResourceLocation.fromNamespaceAndPath(Pandemonium.MODID,
             "textures/gui/sprites/escritoire/text_scroller.png"),
             6,41,0, 0);
+    public static final GuiImage RUNES = new GuiImage(ResourceLocation.fromNamespaceAndPath(Pandemonium.MODID,
+            "textures/gui/sprites/escritoire/runes.png"),
+            6,7,0, 0);
 
 
     public static class GuiImage {

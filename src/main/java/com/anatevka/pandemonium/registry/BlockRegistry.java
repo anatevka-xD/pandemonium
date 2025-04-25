@@ -3,6 +3,7 @@ package com.anatevka.pandemonium.registry;
 import com.anatevka.pandemonium.Pandemonium;
 import com.anatevka.pandemonium.block.*;
 import com.anatevka.pandemonium.block.Escritoire;
+import com.anatevka.pandemonium.block.Shelf;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.bus.api.IEventBus;
@@ -21,6 +22,23 @@ public class BlockRegistry {
             .strength(4f)
             .requiresCorrectToolForDrops()
             .sound(SoundType.NETHERITE_BLOCK));
+
+    public static final DeferredBlock<Shelf> OAK_SHELF = registerBlockWithItem("oak_shelf", Shelf::new, BlockBehaviour.Properties
+            .ofFullCopy(Blocks.OAK_PLANKS));
+    public static final DeferredBlock<Shelf> SPRUCE_SHELF = registerBlockWithItem("spruce_shelf", Shelf::new, BlockBehaviour.Properties
+            .ofFullCopy(Blocks.SPRUCE_PLANKS));
+    public static final DeferredBlock<Shelf> BIRCH_SHELF = registerBlockWithItem("birch_shelf", Shelf::new, BlockBehaviour.Properties
+            .ofFullCopy(Blocks.BIRCH_PLANKS));
+    public static final DeferredBlock<Shelf> JUNGLE_SHELF = registerBlockWithItem("jungle_shelf", Shelf::new, BlockBehaviour.Properties
+            .ofFullCopy(Blocks.JUNGLE_PLANKS));
+    public static final DeferredBlock<Shelf> ACACIA_SHELF = registerBlockWithItem("acacia_shelf", Shelf::new, BlockBehaviour.Properties
+            .ofFullCopy(Blocks.ACACIA_PLANKS));
+    public static final DeferredBlock<Shelf> MANGROVE_SHELF = registerBlockWithItem("mangrove_shelf", Shelf::new, BlockBehaviour.Properties
+            .ofFullCopy(Blocks.MANGROVE_PLANKS));
+    public static final DeferredBlock<Shelf> CHERRY_SHELF = registerBlockWithItem("cherry_shelf", Shelf::new, BlockBehaviour.Properties
+            .ofFullCopy(Blocks.CHERRY_PLANKS));
+    public static final DeferredBlock<Shelf> DARK_OAK_SHELF = registerBlockWithItem("dark_oak_shelf", Shelf::new, BlockBehaviour.Properties
+            .ofFullCopy(Blocks.DARK_OAK_PLANKS));
 
     public static final DeferredBlock<StonePillar> STONE_PILLAR = registerBlockWithItem("stone_pillar", StonePillar::new, BlockBehaviour.Properties
             .ofFullCopy(Blocks.STONE));
