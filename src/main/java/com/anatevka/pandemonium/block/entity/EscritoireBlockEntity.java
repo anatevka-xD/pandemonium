@@ -133,7 +133,7 @@ public class EscritoireBlockEntity extends BlockEntity implements GeoBlockEntity
     //Fill up internal material buffers with valid items
     public void eatItems() {
         for(int i = 0; i<researchMaterialStackHandler.getSize(); i++){
-            if(itemStackHandler.getStackInSlot(i+2).is(researchMaterialStackHandler.getStackMaterial(i).tag())) {
+            if(itemStackHandler.getStackInSlot(i+2).is(researchMaterialStackHandler.getStackMaterial(i).resourceTag())) {
                 if(researchMaterialStackHandler.getStackSize(i) <= 95) {
                     itemStackHandler.extractItem(i + 2, 1, false);
                     researchMaterialStackHandler.increaseStackSize(i, 5);

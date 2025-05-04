@@ -53,6 +53,7 @@ public class Pandemonium
         SoundRegistry.register(modEventBus);
         MenuRegistry.register(modEventBus);
         ResearchRegistry.register(modEventBus);
+        DataComponentRegistry.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);

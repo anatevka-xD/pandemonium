@@ -36,8 +36,6 @@ public class EscritoireScreen extends AbstractContainerScreen<EscritoireMenu> {
         }else if (key == InputConstants.KEY_UP) {
             this.menu.cipherState.set(this.menu.cipherSlot, this.menu.cipherState.get(this.menu.cipherSlot)+1 > 25 ? 0 : this.menu.cipherState.get(this.menu.cipherSlot)+1);
         }
-
-        this.menu.setRemoteSlot(37, new ItemStack(Items.PAPER,1));
         return super.keyPressed(key, scancode, mods);
     }
 
@@ -47,7 +45,7 @@ public class EscritoireScreen extends AbstractContainerScreen<EscritoireMenu> {
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         super.render(graphics, mouseX, mouseY, partialTick);
         this.renderTooltip(graphics, mouseX, mouseY);
-        }
+    }
 
     @Override
     protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
@@ -64,7 +62,7 @@ public class EscritoireScreen extends AbstractContainerScreen<EscritoireMenu> {
         while (researchMaterialIterator.hasNext()) {
             ResearchMaterial researchMaterial = researchMaterialIterator.next().get();
             if (researchMaterial.index() >= 0) {
-                renderMaterialSlot(graphics, researchMaterial, outputItem.is(researchMaterial.tag()), -97, -49 + researchMaterial.index() * 26);
+                renderMaterialSlot(graphics, researchMaterial, outputItem.is(researchMaterial.requirementTag()), -97, -49 + researchMaterial.index() * 26);
                 renderMaterialBar(graphics, this.menu.getAmount(researchMaterial.index()), -97, -35 + researchMaterial.index() * 26, researchMaterial.color());
             }
         }

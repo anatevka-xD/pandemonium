@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "pandemonium:jungle_shelf_shelf"
+          "name": "pandemonium:jungle_shelf"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "pandemonium:blocks/jungle_shelf_shelf"
+  "random_sequence": "pandemonium:blocks/jungle_shelf"
 }

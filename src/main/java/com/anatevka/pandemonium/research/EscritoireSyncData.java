@@ -1,7 +1,7 @@
 package com.anatevka.pandemonium.research;
 
 import com.anatevka.pandemonium.block.entity.EscritoireBlockEntity;
-import net.minecraft.core.NonNullList;
+import com.anatevka.pandemonium.registry.DataComponentRegistry;
 import net.minecraft.world.inventory.ContainerData;
 
 public class EscritoireSyncData implements ContainerData {
@@ -25,3 +25,16 @@ public class EscritoireSyncData implements ContainerData {
         return te.researchMaterialStackHandler.getSize();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
