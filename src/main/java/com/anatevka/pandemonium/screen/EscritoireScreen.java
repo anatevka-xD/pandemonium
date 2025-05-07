@@ -28,12 +28,15 @@ public class EscritoireScreen extends AbstractContainerScreen<EscritoireMenu> {
         this.leftPos = Images.ESCRITOIRE_GUI.getLeftPos(this.width);
         this.topPos = Images.ESCRITOIRE_GUI.getTopPos(this.height);
         this.cipherSlot = 0;
-        this.getCipherState();
+        this.cipherState = Arrays.asList(-1);
         System.out.println(this.menu.getSlot(0).getItem());
     }
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        if (this.cipherState.get(0) == -1) {
+            this.getCipherState();
+        }
         super.render(graphics, mouseX, mouseY, partialTick);
         this.renderTooltip(graphics, mouseX, mouseY);
     }
