@@ -1,6 +1,8 @@
 package com.anatevka.pandemonium.research;
 
 import com.anatevka.pandemonium.registry.ResearchRegistry;
+import com.anatevka.pandemonium.screen.Images;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.NonNullList;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
@@ -17,16 +19,15 @@ public class ResearchMaterialStackHandler {
     }
     public ResearchMaterialStackHandler(int size) {
         stacks = NonNullList.withSize(size, ResearchMaterialStack.EMPTY);
-        final Iterator<DeferredHolder<ResearchMaterial,
-                                ? extends ResearchMaterial>> researchMaterialIterator = ResearchRegistry.RESEARCH_MATERIALS.getEntries().iterator();
-        while (researchMaterialIterator.hasNext()) {
-            ResearchMaterial researchMaterial = researchMaterialIterator.next().get();
-            if (researchMaterial.index() >= 0) {
-                if (getStackInSlot(researchMaterial.index()).getResearchMaterial() == ResearchRegistry.EMPTY.get()) {
-                    setStackInSlot(researchMaterial.index(), new ResearchMaterialStack(0, researchMaterial));
+        ResearchRegistry.RESEARCH_MATERIALS.getEntries().forEach(
+                (m) -> {
+                    if(m.get().index() >= 0) {
+                        if (getStackInSlot(m.get().index()).getResearchMaterial() == ResearchRegistry.EMPTY.get()) {
+                            setStackInSlot(m.get().index(), new ResearchMaterialStack(0, m.get()));
+                        }
+                    }
                 }
-            }
-        }
+        );
     }
 
     public void setSize(int size) {

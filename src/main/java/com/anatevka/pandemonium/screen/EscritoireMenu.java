@@ -1,89 +1,61 @@
 package com.anatevka.pandemonium.screen;
 
 import com.anatevka.pandemonium.block.Escritoire;
-import com.anatevka.pandemonium.block.entity.EscritoireBlockEntity;
-import com.anatevka.pandemonium.registry.BlockRegistry;
-import com.anatevka.pandemonium.registry.MenuRegistry;
-import com.anatevka.pandemonium.registry.ResearchRegistry;
-import com.anatevka.pandemonium.research.EscritoireSyncData;
-import com.google.common.primitives.Ints;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleMenuProvider;
+import com.anatevka.pandemonium.component.CipherData;
+import com.anatevka.pandemonium.registry.*;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.*;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
-import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EscritoireMenu extends AbstractContainerMenu {
     private final ContainerLevelAccess access;
-    private final ContainerData data;
-    public IItemHandler inv;
-    public int cipherSlot = 0;
-    public List<Integer> cipherState = Ints.asList(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25);
-
+    private final ContainerData researchMaterialData;
     public static final String TITLE = "container.pandemonium.escritoire";
 
-    public static EscritoireMenu getClientMenu(int id, Inventory playerInventory) {
-        return new EscritoireMenu(
-                id,
-                playerInventory,
-                BlockPos.ZERO,
-                new ItemStackHandler(2 + ResearchRegistry.REGISTRY.size()-1),
-                new SimpleContainerData(ResearchRegistry.REGISTRY.size()-1));
+    public EscritoireMenu(int containerId, Inventory playerInventory) {
+        this(
+                containerId, playerInventory, ContainerLevelAccess.NULL, new ItemStackHandler(Escritoire.SLOT_COUNT + ResearchRegistry.REGISTRY.size() - 1),
+                new SimpleContainerData(ResearchRegistry.REGISTRY.size() - 1));
     }
 
-    public static MenuProvider getServerMenuProvider(EscritoireBlockEntity te, BlockPos activationPos) {
-        return new SimpleMenuProvider(
-                 (id, playerInventory, serverPlayer) -> new EscritoireMenu(
-                         id,
-                         playerInventory,
-                         activationPos,
-                         te.itemStackHandler,
-                         new EscritoireSyncData(te)),
-                Component.translatable(TITLE));
-    }
-
-    public EscritoireMenu(int containerId, Inventory playerInv, BlockPos pos, IItemHandler inv, ContainerData data) {
+    public EscritoireMenu(int containerId, Inventory playerInventory, ContainerLevelAccess access, IItemHandler inventory, ContainerData researchMaterialData) {
         super(MenuRegistry.ESCRITOIRE_MENU.get(), containerId);
-        final Player player = playerInv.player;
+        this.access = access;
+        this.researchMaterialData = researchMaterialData;
 
-        this.access = ContainerLevelAccess.create(player.level(), pos);
-        this.data = data;
-        this.inv = inv;
-
-        addPlayerInventory(playerInv);
-        addPlayerHotbar(playerInv);
-
-        this.addSlot(new SlotItemHandler(inv, Escritoire.inputSlotIndex, -17, 3));
-        this.addSlot(new SlotItemHandler(inv, Escritoire.outputSlotIndex, 177, 3));
-        for (int i = 0; i<ResearchRegistry.RESEARCH_MATERIALS.getEntries().size()-1; i++) {
-            this.addSlot(new SlotItemHandler(inv, i + Escritoire.startIndex, -17, 26 + i * 26));
+        for (int i = 0; i < inventory.getSlots(); i++) {
+            if (i == 0) {
+                this.addSlot(new SlotItemHandler(inventory, i, 11, 48));
+            } else {
+                this.addSlot(new SlotItemHandler(inventory, i, 11, 48 + i * 26));
+            }
         }
-        this.addDataSlots(data);
+
+        this.addStandardInventorySlots(playerInventory, 36, 174);
+        this.addDataSlots(researchMaterialData);
     }
 
     @Override
     public ItemStack quickMoveStack(Player player, int i) {
         return null;
     }
+
     @Override
-    public boolean stillValid(Player player) {return AbstractContainerMenu.stillValid(this.access, player, BlockRegistry.ESCRITOIRE.get());}
-    private void addPlayerInventory(Inventory playerInventory) {for (int i = 0; i < 3; ++i) {for (int l = 0; l < 9; ++l) {this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, 129 + i * 18));}}
+    public boolean stillValid(Player player) {
+        return super.stillValid(this.access, player, BlockRegistry.ESCRITOIRE.get());
     }
-    private void addPlayerHotbar(Inventory playerInventory) {for (int i = 0; i < 9; ++i) {this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 187));}
-    }
-    public int getAmount(int index){
-        return data.get(index);
+
+    public int getResearchMaterialAmount (int i) {
+        return this.researchMaterialData.get(i);
     }
 }

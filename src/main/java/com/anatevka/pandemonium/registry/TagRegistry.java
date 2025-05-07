@@ -17,9 +17,9 @@ public class TagRegistry {
 
     public static class Items {
         public static final TagKey<Item> EMPTY = createTag("empty");
-        public static final TagKey<Item> RESEARCHABLE = createTag("researchable");
+        public static final TagKey<Item> RESEARCH_TEXT = createTag("research_text");
+        public static final TagKey<Item> TRANSLATION_TEXT = createTag("translation_text");
         public static final TagKey<Item> WANTS_CIPHER = createTag("wants_cipher");
-        public static final TagKey<Item> TRANSLATION = createTag("translation");
         public static final TagKey<Item> WANTS_PAPER = createTag("wants_paper");
         public static final TagKey<Item> WANTS_INK = createTag("wants_ink");
         public static final TagKey<Item> WANTS_AMETHYST = createTag("wants_amethyst");

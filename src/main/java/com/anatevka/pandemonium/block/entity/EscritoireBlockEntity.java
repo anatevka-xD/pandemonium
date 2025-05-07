@@ -5,17 +5,28 @@ import com.anatevka.pandemonium.research.ResearchMaterialStackHandler;
 import com.anatevka.pandemonium.registry.BlockEntityRegistry;
 import com.anatevka.pandemonium.registry.ResearchRegistry;
 import com.anatevka.pandemonium.registry.SoundRegistry;
+import com.anatevka.pandemonium.screen.EscritoireMenu;
+import com.google.common.primitives.Ints;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.SimpleContainerData;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -30,17 +41,25 @@ import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.util.ClientUtil;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
-public class EscritoireBlockEntity extends BlockEntity implements GeoBlockEntity{
-    public boolean deskOpen = false;
-
-    public final ResearchMaterialStackHandler researchMaterialStackHandler = new ResearchMaterialStackHandler(ResearchRegistry.RESEARCH_MATERIALS.getEntries().size()-1);
-    public final ItemStackHandler itemStackHandler = new ItemStackHandler(2 + ResearchRegistry.REGISTRY.size()-1) {
+public class EscritoireBlockEntity extends BlockEntity implements GeoBlockEntity, MenuProvider {
+    private boolean deskOpen = false;
+    private final List<Integer> cipherState = Arrays.asList(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25);
+    private final ResearchMaterialStackHandler researchMaterialInv = new ResearchMaterialStackHandler(ResearchRegistry.REGISTRY.size() - 1);
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private final ItemStackHandler inventory = new ItemStackHandler(Escritoire.SLOT_COUNT + ResearchRegistry.REGISTRY.size() - 1) {
         @Override
-        protected int getStackLimit(int slot, ItemStack stack) {if (slot == 0 || slot == 1 ) {return 1;} return super.getStackLimit(slot, stack);}
+        protected int getStackLimit(int slot, ItemStack stack) {if (slot == 0) {return 1;} return super.getStackLimit(slot, stack);}
         @Override
-        protected void onContentsChanged(int slot) {setChanged();if(!level.isClientSide()) {level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);}}
+        protected void onContentsChanged(int slot) {
+            setChanged();
+            if(!level.isClientSide()) {
+                level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
+            }
+        }
     };
 
     public EscritoireBlockEntity(BlockPos pos, BlockState blockState) {
@@ -50,42 +69,79 @@ public class EscritoireBlockEntity extends BlockEntity implements GeoBlockEntity
 
     /* Inventory */
 
-    public void clearContents() {for(int i = 0; i < itemStackHandler.getSlots(); i++) {itemStackHandler.setStackInSlot(i, ItemStack.EMPTY);}}
-
     public void drops() {
-        SimpleContainer inv = new SimpleContainer(itemStackHandler.getSlots());
-        for(int i = 0; i < itemStackHandler.getSlots(); i++) {inv.setItem(i, itemStackHandler.getStackInSlot(i));}
+        SimpleContainer inv = new SimpleContainer(inventory.getSlots());
+        for(int i = 0; i < inventory.getSlots(); i++) {inv.setItem(i, inventory.getStackInSlot(i));}
         Containers.dropContents(this.level, this.worldPosition, inv);
+    }
+
+    public void eatItems() {
+        for(int i = 0; i< researchMaterialInv.getSize(); i++){
+            if(inventory.getStackInSlot(i+Escritoire.SLOT_COUNT).is(researchMaterialInv.getStackMaterial(i).resourceTag())) {
+                if(researchMaterialInv.getStackSize(i) <= 90) {
+                    inventory.extractItem(i + Escritoire.SLOT_COUNT, 1, false);
+                    researchMaterialInv.increaseStackSize(i, 10);
+                }
+            }
+        }
+    }
+    @Override
+    public Component getDisplayName() {
+        return Component.translatable(EscritoireMenu.TITLE);
+    }
+
+    @Override
+    public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
+        return new EscritoireMenu(
+                i, inventory, ContainerLevelAccess.create(player.level(), this.getBlockPos()), this.inventory,
+                new ContainerData() {
+                    @Override
+                    public int get(int i) {
+                        return researchMaterialInv.getStackSize(i);
+                    }
+
+                    @Override
+                    public void set(int i, int i1) {
+
+                    }
+
+                    @Override
+                    public int getCount() {
+                        return researchMaterialInv.getSize();
+                    }
+        });
+    }
+
+    @Nullable
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        return saveWithoutMetadata(registries);
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
-        tag.put("escritoire_inventory", itemStackHandler.serializeNBT(registries));
-        for (int i = 0; i<ResearchRegistry.REGISTRY.size()-1; i++) {
-            tag.putInt(researchMaterialStackHandler.getStackInSlot(i).getResearchMaterial().toString(), researchMaterialStackHandler.getStackInSlot(i).getAmount());
+        tag.put("escritoire_inventory", inventory.serializeNBT(registries));
+        for (int i = 0; i < ResearchRegistry.REGISTRY.size() - 1; i++) {
+            tag.putInt(researchMaterialInv.getStackInSlot(i).getResearchMaterial().toString(), researchMaterialInv.getStackInSlot(i).getAmount());
         }
     }
 
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
-        itemStackHandler.deserializeNBT(registries, tag.getCompound("escritoire_inventory"));
-        for (int i = 0; i<researchMaterialStackHandler.getSize(); i++) {
-            this.researchMaterialStackHandler.setStackSize(i, tag.getInt(researchMaterialStackHandler.getStackMaterial(i).toString()));
+        inventory.deserializeNBT(registries, tag.getCompound("escritoire_inventory"));
+        for (int i = 0; i < ResearchRegistry.REGISTRY.size() - 1; i++) {
+            this.researchMaterialInv.setStackSize(i, tag.getInt(researchMaterialInv.getStackMaterial(i).toString()));
         }
     }
 
-    @Nullable
-    @Override
-    public Packet<ClientGamePacketListener> getUpdatePacket() {return ClientboundBlockEntityDataPacket.create(this);}
-
-    @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {return saveWithoutMetadata(registries);}
-
     /* Animation */
-
-    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public void animateState(BlockPos pos, Level level){
         Player player = level.getNearestPlayer((double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, 3.0, false);
@@ -128,17 +184,5 @@ public class EscritoireBlockEntity extends BlockEntity implements GeoBlockEntity
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.cache;
-    }
-
-    //Fill up internal material buffers with valid items
-    public void eatItems() {
-        for(int i = 0; i<researchMaterialStackHandler.getSize(); i++){
-            if(itemStackHandler.getStackInSlot(i+2).is(researchMaterialStackHandler.getStackMaterial(i).resourceTag())) {
-                if(researchMaterialStackHandler.getStackSize(i) <= 95) {
-                    itemStackHandler.extractItem(i + 2, 1, false);
-                    researchMaterialStackHandler.increaseStackSize(i, 5);
-                }
-            }
-        }
     }
 }

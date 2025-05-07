@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "pandemonium:item/research_page"
+    "layer0": "pandemonium:item/research_page_overlay",
+    "layer1": "pandemonium:item/research_page"
   }
 }
