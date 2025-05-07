@@ -1,8 +1,9 @@
 package com.anatevka.pandemonium.screen;
 
 import com.anatevka.pandemonium.block.Escritoire;
-import com.anatevka.pandemonium.component.CipherData;
 import com.anatevka.pandemonium.registry.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -14,24 +15,27 @@ import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class EscritoireMenu extends AbstractContainerMenu {
     private final ContainerLevelAccess access;
     private final ContainerData researchMaterialData;
+    public final ContainerData posData;
     public static final String TITLE = "container.pandemonium.escritoire";
 
     public EscritoireMenu(int containerId, Inventory playerInventory) {
-        this(
-                containerId, playerInventory, ContainerLevelAccess.NULL, new ItemStackHandler(Escritoire.SLOT_COUNT + ResearchRegistry.REGISTRY.size() - 1),
-                new SimpleContainerData(ResearchRegistry.REGISTRY.size() - 1));
+        this(containerId, playerInventory,ContainerLevelAccess.NULL,
+                new ItemStackHandler(Escritoire.SLOT_COUNT + ResearchRegistry.REGISTRY.size() - 1),
+                new SimpleContainerData(ResearchRegistry.REGISTRY.size() - 1),
+                new SimpleContainerData(3));
     }
 
-    public EscritoireMenu(int containerId, Inventory playerInventory, ContainerLevelAccess access, IItemHandler inventory, ContainerData researchMaterialData) {
+    public EscritoireMenu(int containerId, Inventory playerInventory, ContainerLevelAccess access,
+                          IItemHandler inventory,
+                          ContainerData researchMaterialData,
+                          ContainerData posData) {
         super(MenuRegistry.ESCRITOIRE_MENU.get(), containerId);
         this.access = access;
         this.researchMaterialData = researchMaterialData;
+        this.posData = posData;
 
         for (int i = 0; i < inventory.getSlots(); i++) {
             if (i == 0) {
@@ -43,6 +47,7 @@ public class EscritoireMenu extends AbstractContainerMenu {
 
         this.addStandardInventorySlots(playerInventory, 36, 174);
         this.addDataSlots(researchMaterialData);
+        this.addDataSlots(posData);
     }
 
     @Override

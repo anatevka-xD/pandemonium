@@ -1,7 +1,7 @@
 package com.anatevka.pandemonium.registry;
 
 import com.anatevka.pandemonium.Pandemonium;
-import com.anatevka.pandemonium.component.CipherData;
+import com.anatevka.pandemonium.component.CipherState;
 import com.anatevka.pandemonium.item.EscritoireItem;
 import com.anatevka.pandemonium.item.GargoyleStatueItem;
 import com.anatevka.pandemonium.item.ResearchPageItem;
@@ -21,7 +21,7 @@ public final class ItemRegistry {
     public static final DeferredItem<Item> GARGOYLE_STATUE = ITEMS.registerItem("gargoyle_statue", properties -> new GargoyleStatueItem(BlockRegistry.GARGOYLE_STATUE.get(), properties));
     public static final DeferredItem<Item> STONE_CHEST = ITEMS.registerItem("stone_chest", properties -> new StoneChestItem(BlockRegistry.STONE_CHEST.get(), properties));
     public static final DeferredItem<Item> ESCRITOIRE = ITEMS.registerItem("escritoire", properties -> new EscritoireItem(BlockRegistry.ESCRITOIRE.get(), properties));
-    public static final DeferredItem<ResearchPageItem> RESEARCH_PAGE = ITEMS.registerItem("research_page", properties -> new ResearchPageItem(properties.component(DataComponentRegistry.CIPHER_DATA.get(), new CipherData(0, CipherData.DEFAULT_LIST))));
+    public static final DeferredItem<ResearchPageItem> RESEARCH_PAGE = ITEMS.registerItem("research_page", ResearchPageItem::new);
 
 
     public static void register(IEventBus eventBus) {

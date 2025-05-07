@@ -1,6 +1,7 @@
 package com.anatevka.pandemonium.screen;
 
-import com.anatevka.pandemonium.component.CipherData;
+import com.anatevka.pandemonium.component.CipherState;
+import com.anatevka.pandemonium.network.CipherData;
 import com.anatevka.pandemonium.registry.DataComponentRegistry;
 import com.anatevka.pandemonium.registry.ItemRegistry;
 import com.anatevka.pandemonium.registry.ResearchRegistry;
@@ -9,10 +10,12 @@ import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.Slot;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,13 +32,24 @@ public class EscritoireScreen extends AbstractContainerScreen<EscritoireMenu> {
         this.topPos = Images.ESCRITOIRE_GUI.getTopPos(this.height);
         this.cipherSlot = 0;
         this.cipherState = Arrays.asList(-1);
-        System.out.println(this.menu.getSlot(0).getItem());
+    }
+
+    @Override
+    protected void slotClicked(Slot slot, int slotId, int mouseButton, ClickType type) {
+        super.slotClicked(slot, slotId, mouseButton, type);
+        if (slotId == 0) {
+            this.cipherState.set(0, -1);
+        }
     }
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        if (this.cipherState.get(0) == -1) {
-            this.getCipherState();
+        if(this.menu.getSlot(0).getItem().is(ItemRegistry.RESEARCH_PAGE)) {
+            if (this.cipherState.get(0) == -1) {
+                this.cipherState = new ArrayList<>(this.menu.getSlot(0).getItem().get(DataComponentRegistry.CIPHER_DATA).cipherState());
+            }
+        } else {
+            this.cipherState.set(0, -1);
         }
         super.render(graphics, mouseX, mouseY, partialTick);
         this.renderTooltip(graphics, mouseX, mouseY);
@@ -54,33 +68,24 @@ public class EscritoireScreen extends AbstractContainerScreen<EscritoireMenu> {
 
     @Override
     public boolean keyPressed(int key, int scancode, int mods) {
-        if (key == InputConstants.KEY_LEFT) {
-            this.cipherSlot = Math.clamp(this.cipherSlot-1, 0, 25);
-        } else if (key == InputConstants.KEY_RIGHT) {
-            this.cipherSlot = Math.clamp(this.cipherSlot+1, 0, 25);
-        } else if (key == InputConstants.KEY_UP) {
-            cipherState.set(this.cipherSlot, cipherState.get(this.cipherSlot)-1 < 0 ? 25 : cipherState.get(this.cipherSlot)-1);
-        }else if (key == InputConstants.KEY_DOWN) {
-            cipherState.set(this.cipherSlot, cipherState.get(this.cipherSlot)+1 > 25 ? 0 : cipherState.get(this.cipherSlot)+1);
+        switch (key) {
+            case InputConstants.KEY_LEFT:
+                this.cipherSlot = Math.clamp(this.cipherSlot-1, 0, 25);
+                break;
+            case InputConstants.KEY_RIGHT:
+                this.cipherSlot = Math.clamp(this.cipherSlot+1, 0, 25);
+                break;
+            case InputConstants.KEY_UP:
+                cipherState.set(this.cipherSlot, cipherState.get(this.cipherSlot)-1 < 0 ? 25 : cipherState.get(this.cipherSlot)-1);
+                break;
+            case InputConstants.KEY_DOWN:
+                cipherState.set(this.cipherSlot, cipherState.get(this.cipherSlot)+1 > 25 ? 0 : cipherState.get(this.cipherSlot)+1);
+                break;
+            case InputConstants.KEY_RETURN:
+                PacketDistributor.sendToServer(
+                        new CipherData(BlockPos.containing(this.menu.posData.get(0), this.menu.posData.get(1), this.menu.posData.get(2)), this.cipherState));
         }
         return super.keyPressed(key, scancode, mods);
-    }
-
-    @Override
-    protected void slotClicked(Slot slot, int slotId, int mouseButton, ClickType type) {
-        super.slotClicked(slot, slotId, mouseButton, type);
-        System.out.println(this.menu.getSlot(0).getItem());
-        if (slot != null && slot.index == 0) {
-            this.getCipherState();
-        }
-    }
-
-    private void getCipherState(){
-        if(this.menu.getSlot(0).getItem().is(ItemRegistry.RESEARCH_PAGE)) {
-            this.cipherState = new ArrayList<>(this.menu.getSlot(0).getItem().get(DataComponentRegistry.CIPHER_DATA).cipherState());
-        } else {
-            this.cipherState = new ArrayList<>(CipherData.DEFAULT_LIST);
-        }
     }
 
     private void renderGUI(GuiGraphics guiGraphics){

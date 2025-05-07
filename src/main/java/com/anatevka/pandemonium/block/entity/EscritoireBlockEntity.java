@@ -85,6 +85,15 @@ public class EscritoireBlockEntity extends BlockEntity implements GeoBlockEntity
             }
         }
     }
+
+    public void setItemStack(int index, ItemStack item){
+        inventory.setStackInSlot(index, item);
+    }
+
+    public ItemStack getItemStack(int index) {
+        return inventory.getStackInSlot(0);
+    }
+
     @Override
     public Component getDisplayName() {
         return Component.translatable(EscritoireMenu.TITLE);
@@ -109,7 +118,28 @@ public class EscritoireBlockEntity extends BlockEntity implements GeoBlockEntity
                     public int getCount() {
                         return researchMaterialInv.getSize();
                     }
-        });
+        },
+                new ContainerData() {
+                    @Override
+                    public int get(int i) {
+                        return switch (i) {
+                            case 0 -> getBlockPos().getX();
+                            case 1 -> getBlockPos().getY();
+                            case 2 -> getBlockPos().getZ();
+                            default -> 0;
+                        };
+                    }
+
+                    @Override
+                    public void set(int i, int i1) {
+
+                    }
+
+                    @Override
+                    public int getCount() {
+                        return 3;
+                    }
+                });
     }
 
     @Nullable

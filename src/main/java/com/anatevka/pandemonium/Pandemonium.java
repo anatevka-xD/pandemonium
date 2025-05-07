@@ -1,6 +1,7 @@
 package com.anatevka.pandemonium;
 
 import com.anatevka.pandemonium.client.renderer.block.EscritoireBlockEntityRenderer;
+import com.anatevka.pandemonium.network.CipherData;
 import com.anatevka.pandemonium.registry.*;
 import com.anatevka.pandemonium.client.renderer.block.CopperPedestalBlockEntityRenderer;
 import com.anatevka.pandemonium.client.renderer.block.GargoyleStatueBlockEntityRenderer;
@@ -25,6 +26,9 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.handling.DirectionalPayloadHandler;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import org.slf4j.Logger;
 
@@ -118,6 +122,16 @@ public class Pandemonium
         @SubscribeEvent
         private static void registerRegistries(NewRegistryEvent event) {
             event.register(ResearchRegistry.REGISTRY);
+        }
+
+        @SubscribeEvent
+        public static void register(final RegisterPayloadHandlersEvent event) {
+            final PayloadRegistrar registrar = event.registrar(Pandemonium.MODID);
+            registrar.playToServer(
+                    CipherData.TYPE,
+                    CipherData.STREAM_CODEC,
+                    CipherData::handleDataOnMain
+            );
         }
     }
 }
