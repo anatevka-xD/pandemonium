@@ -3,29 +3,18 @@ package com.anatevka.pandemonium.item;
 import com.anatevka.pandemonium.component.CipherStateComponent;
 import com.anatevka.pandemonium.component.ResearchTextComponent;
 import com.anatevka.pandemonium.registry.DataComponentRegistry;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class ResearchPageItem extends Item {
-    public ResearchPageItem(Properties properties) {
+public class LostPageItem extends Item {
+    public LostPageItem(Properties properties) {
         this(properties, new ArrayList<>(CipherStateComponent.DEFAULT_LIST), ResearchTextComponent.DEFAULT_TEXT);
     }
 
-    public ResearchPageItem(Properties properties, List<Integer> cipherState, List<String> researchText) {
-        super(properties
-                .component(DataComponentRegistry.CIPHER_DATA.get(), new CipherStateComponent(cipherState))
-                .component(DataComponentRegistry.RESEARCH_TEXT.get(), new ResearchTextComponent(researchText)));
+    public LostPageItem(Properties properties, List<Integer> cipherState, List<String> researchText) {
+        super(properties.component(DataComponentRegistry.RESEARCH_TEXT.get(), new ResearchTextComponent(researchText)));
     }
 
     /*@Override

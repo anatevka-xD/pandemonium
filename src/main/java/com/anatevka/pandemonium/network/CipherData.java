@@ -2,24 +2,18 @@ package com.anatevka.pandemonium.network;
 
 import com.anatevka.pandemonium.Pandemonium;
 import com.anatevka.pandemonium.block.entity.EscritoireBlockEntity;
-import com.anatevka.pandemonium.component.CipherState;
-import com.anatevka.pandemonium.item.ResearchPageItem;
+import com.anatevka.pandemonium.component.CipherStateComponent;
 import com.anatevka.pandemonium.registry.DataComponentRegistry;
 import com.anatevka.pandemonium.registry.ItemRegistry;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.ListCodec;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.ExtraCodecs;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.List;
@@ -46,7 +40,7 @@ public record CipherData(BlockPos pos, List<Integer> cipherState) implements Cus
                     if (context.player().level().getBlockEntity(data.pos()) instanceof EscritoireBlockEntity be) {
                         ItemStack stack = be.getItemStack(0);
                         if (stack.is(ItemRegistry.RESEARCH_PAGE)) {
-                            stack.set(DataComponentRegistry.CIPHER_DATA, new CipherState(data.cipherState()));
+                            stack.set(DataComponentRegistry.CIPHER_DATA, new CipherStateComponent(data.cipherState()));
                             be.setItemStack(0, stack);
                             be.setChanged();
                         }

@@ -23,7 +23,6 @@ public class TabRegistry {
                         output.accept(ItemRegistry.SIGNUM_MALI);
                         output.accept(ItemRegistry.MANDRAKE_SEEDS);
                         output.accept(ItemRegistry.GRIMOIRE);
-                        output.accept(ItemRegistry.TATTERED_PAGE);
                         output.accept(ItemRegistry.LOST_PAGE);
                         output.accept(ItemRegistry.RESEARCH_PAGE);
                         output.accept(BlockRegistry.FLESH_BLOCK);

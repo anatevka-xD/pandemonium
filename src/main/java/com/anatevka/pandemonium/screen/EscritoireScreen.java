@@ -1,17 +1,20 @@
 package com.anatevka.pandemonium.screen;
 
-import com.anatevka.pandemonium.component.CipherState;
 import com.anatevka.pandemonium.network.CipherData;
 import com.anatevka.pandemonium.registry.DataComponentRegistry;
 import com.anatevka.pandemonium.registry.ItemRegistry;
 import com.anatevka.pandemonium.registry.ResearchRegistry;
 import com.anatevka.pandemonium.registry.TagRegistry;
 import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FormattedText;
+import net.minecraft.network.chat.Style;
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.Slot;
@@ -22,6 +25,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class EscritoireScreen extends AbstractContainerScreen<EscritoireMenu> {
+    private static final Style ENCHANTING_TABLE = Style.EMPTY.withFont(Minecraft.ALT_FONT);
     private int cipherSlot;
     private List<Integer> cipherState;
     public EscritoireScreen(EscritoireMenu menu, Inventory playerInventory, Component title) {
@@ -58,7 +62,7 @@ public class EscritoireScreen extends AbstractContainerScreen<EscritoireMenu> {
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float v, int i, int i1) {
         this.renderGUI(guiGraphics);
-        this.renderResearch(guiGraphics);
+        this.renderResearchText(guiGraphics);
         this.renderMaterialSlots(guiGraphics);
     }
 
@@ -98,7 +102,8 @@ public class EscritoireScreen extends AbstractContainerScreen<EscritoireMenu> {
         );
     }
 
-    private void renderResearch(GuiGraphics guiGraphics){
+    private void renderResearchText(GuiGraphics guiGraphics){
+        //Render Lost Page
         if (this.menu.getSlot(0).getItem().is(TagRegistry.Items.RESEARCH_TEXT)) {
             guiGraphics.blit(
                     RenderType::guiTextured, Images.LOST_PAGE.getImage(),
@@ -107,7 +112,25 @@ public class EscritoireScreen extends AbstractContainerScreen<EscritoireMenu> {
                     Images.LOST_PAGE.getWidth(), Images.LOST_PAGE.getHeight(),
                     78,106
             );
+
+            //Render Research Text
+            guiGraphics.pose().pushPose();
+            guiGraphics.pose().scale(0.5F, 0.5F, 0.5F);
+            List<String> researchText = this.menu.getSlot(0).getItem().get(DataComponentRegistry.RESEARCH_TEXT).researchText();
+            int x = Images.LOST_PAGE.getLeftPos(this.width*2) - 114;
+            int y = Images.LOST_PAGE.getTopPos(this.height*2) - 180;
+
+            for (int i = 0; i < researchText.size(); i++) {
+                //Split into lines that will fit onto the page
+                List<FormattedText> splitText = font.getSplitter().splitLines(researchText.get(i),147, ENCHANTING_TABLE);
+                for (int j = 0; j < splitText.size(); j++) {
+                    guiGraphics.drawString(font, Component.literal(splitText.get(j).getString()).withStyle(ENCHANTING_TABLE), x, y, 0x665A48, false);
+                    y += 9;
+                }
+            }
+            guiGraphics.pose().popPose();
         }
+        //Render Translation Page
         if (this.menu.getSlot(0).getItem().is(TagRegistry.Items.TRANSLATION_TEXT)) {
             guiGraphics.blit(
                     RenderType::guiTextured, Images.RESEARCH_PAGE.getImage(),
@@ -116,6 +139,22 @@ public class EscritoireScreen extends AbstractContainerScreen<EscritoireMenu> {
                     Images.RESEARCH_PAGE.getWidth(), Images.RESEARCH_PAGE.getHeight(),
                     78,106
             );
+            //Render Translation Text
+            guiGraphics.pose().pushPose();
+            guiGraphics.pose().scale(0.5F, 0.5F, 0.5F);
+            List<String> researchText = this.menu.getSlot(0).getItem().get(DataComponentRegistry.RESEARCH_TEXT).researchText();
+            int x = Images.RESEARCH_PAGE.getLeftPos(this.width*2) + 48;
+            int y = Images.RESEARCH_PAGE.getTopPos(this.height*2) - 180;
+
+            for (int i = 0; i < researchText.size(); i++) {
+                //Split into lines that will fit onto the page
+                List<FormattedCharSequence> splitText = font.split(FormattedText.of(researchText.get(i)), 147);
+                for (int j = 0; j < splitText.size(); j++) {
+                    guiGraphics.drawString(font, splitText.get(j), x, y, 0x000000, false);
+                    y += 9;
+                }
+            }
+            guiGraphics.pose().popPose();
         }
         if (this.menu.getSlot(0).getItem().is(TagRegistry.Items.WANTS_CIPHER)) {
             guiGraphics.blit(
@@ -157,21 +196,21 @@ public class EscritoireScreen extends AbstractContainerScreen<EscritoireMenu> {
                     if(m.get().index() >= 0) {
                         guiGraphics.blit(
                                 RenderType::guiTextured, this.menu.getSlot(0).getItem().is(m.get().requirementTag()) ? m.get().icon() : m.get().unusedIcon(),
-                                Images.SLOT.getLeftPos(this.width) - 97, Images.SLOT.getTopPos(this.height) - 46 + m.get().index() * 26,
+                                Images.SLOT.getLeftPos(this.width) + 97, Images.SLOT.getTopPos(this.height) - 46 + (m.get().index()-1) * 26,
                                 0f, 0f,
                                 Images.SLOT.getWidth(), Images.SLOT.getHeight(),
                                 18, 18
                         );
                         guiGraphics.blit(
                                 RenderType::guiTextured, Images.MATERIAL_BAR.getImage(),
-                                Images.MATERIAL_BAR.getLeftPos(this.width) - 97, Images.MATERIAL_BAR.getTopPos(this.height) - 34 + m.get().index() * 26,
+                                Images.MATERIAL_BAR.getLeftPos(this.width) + 97, Images.MATERIAL_BAR.getTopPos(this.height) - 34 + (m.get().index()-1) * 26,
                                 0f, 4f,
                                 Images.MATERIAL_BAR.getWidth(), Images.MATERIAL_BAR.getHeight(),
                                 26, 8, m.get().color()
                         );
                         guiGraphics.blit(
                                 RenderType::guiTextured, Images.MATERIAL_BAR.getImage(),
-                                Images.MATERIAL_BAR.getLeftPos(this.width) - 97, Images.MATERIAL_BAR.getTopPos(this.height) - 34 + m.get().index() * 26,
+                                Images.MATERIAL_BAR.getLeftPos(this.width) + 97, Images.MATERIAL_BAR.getTopPos(this.height) - 34 + (m.get().index()-1) * 26,
                                 0f, 0f,
                                 Images.MATERIAL_BAR.getWidth()*this.menu.getResearchMaterialAmount(m.get().index())/100, Images.MATERIAL_BAR.getHeight(),
                                 26, 8, m.get().color()
