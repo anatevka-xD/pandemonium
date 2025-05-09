@@ -62,7 +62,9 @@ public class EscritoireScreen extends AbstractContainerScreen<EscritoireMenu> {
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float v, int i, int i1) {
         this.renderGUI(guiGraphics);
-        this.renderResearchText(guiGraphics);
+        this.renderResearch(guiGraphics);
+        this.renderTranslation(guiGraphics);
+        this.renderCipher(guiGraphics);
         this.renderMaterialSlots(guiGraphics);
     }
 
@@ -102,7 +104,7 @@ public class EscritoireScreen extends AbstractContainerScreen<EscritoireMenu> {
         );
     }
 
-    private void renderResearchText(GuiGraphics guiGraphics){
+    private void renderResearch(GuiGraphics guiGraphics){
         //Render Lost Page
         if (this.menu.getSlot(0).getItem().is(TagRegistry.Items.RESEARCH_TEXT)) {
             guiGraphics.blit(
@@ -130,6 +132,9 @@ public class EscritoireScreen extends AbstractContainerScreen<EscritoireMenu> {
             }
             guiGraphics.pose().popPose();
         }
+    }
+
+    private void renderTranslation(GuiGraphics guiGraphics) {
         //Render Translation Page
         if (this.menu.getSlot(0).getItem().is(TagRegistry.Items.TRANSLATION_TEXT)) {
             guiGraphics.blit(
@@ -156,6 +161,9 @@ public class EscritoireScreen extends AbstractContainerScreen<EscritoireMenu> {
             }
             guiGraphics.pose().popPose();
         }
+    }
+
+    private void renderCipher(GuiGraphics guiGraphics) {
         if (this.menu.getSlot(0).getItem().is(TagRegistry.Items.WANTS_CIPHER)) {
             guiGraphics.blit(
                     RenderType::guiTextured, Images.RESEARCH_CIPHER.getImage(),

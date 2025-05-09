@@ -1,10 +1,7 @@
 package com.anatevka.pandemonium.registry;
 
 import com.anatevka.pandemonium.Pandemonium;
-import com.anatevka.pandemonium.block.entity.CopperPedestalBlockEntity;
-import com.anatevka.pandemonium.block.entity.EscritoireBlockEntity;
-import com.anatevka.pandemonium.block.entity.GargoyleStatueBlockEntity;
-import com.anatevka.pandemonium.block.entity.StoneChestBlockEntity;
+import com.anatevka.pandemonium.block.entity.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
@@ -45,6 +42,12 @@ public class BlockEntityRegistry {
                     () -> new BlockEntityType<>(
                             EscritoireBlockEntity::new,
                             BlockRegistry.ESCRITOIRE.get()
+                    ));
+    public static final Supplier<BlockEntityType<SoulCandleBlockEntity>> SOUL_CANDLE_BE =
+            BLOCK_ENTITIES.register("soul_candle_be",
+                    () -> new BlockEntityType<>(
+                            SoulCandleBlockEntity::new,
+                            BlockRegistry.SOUL_CANDLE.get()
                     ));
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

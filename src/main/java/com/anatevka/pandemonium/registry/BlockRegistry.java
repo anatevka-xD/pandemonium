@@ -173,6 +173,9 @@ public class BlockRegistry {
             .ofFullCopy(Blocks.OAK_PLANKS)
             .noOcclusion());
 
+    public static final DeferredBlock<SoulCandleBlock> SOUL_CANDLE = registerBlockWithItem("soul_candle", SoulCandleBlock::new, BlockBehaviour.Properties
+                    .ofFullCopy(Blocks.CANDLE));
+
     public static <T extends Block> DeferredBlock<T> registerBlockWithItem(String name, Function<BlockBehaviour.Properties, T> blockCreator, BlockBehaviour.Properties properties) {
         DeferredBlock<T> block = BLOCKS.registerBlock(name, blockCreator, properties);
         ItemRegistry.ITEMS.registerSimpleBlockItem(name, block);

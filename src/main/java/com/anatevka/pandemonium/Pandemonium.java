@@ -1,11 +1,9 @@
 package com.anatevka.pandemonium;
 
-import com.anatevka.pandemonium.client.renderer.block.EscritoireBlockEntityRenderer;
+import com.anatevka.pandemonium.block.entity.SoulCandleBlockEntity;
+import com.anatevka.pandemonium.client.renderer.block.*;
 import com.anatevka.pandemonium.network.CipherData;
 import com.anatevka.pandemonium.registry.*;
-import com.anatevka.pandemonium.client.renderer.block.CopperPedestalBlockEntityRenderer;
-import com.anatevka.pandemonium.client.renderer.block.GargoyleStatueBlockEntityRenderer;
-import com.anatevka.pandemonium.client.renderer.block.StoneChestBlockEntityRenderer;
 import com.anatevka.pandemonium.screen.EscritoireScreen;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
@@ -112,6 +110,7 @@ public class Pandemonium
             event.registerBlockEntityRenderer(BlockEntityRegistry.STONE_CHEST_BE.get(), StoneChestBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(BlockEntityRegistry.GARGOYLE_STATUE_BE.get(), GargoyleStatueBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(BlockEntityRegistry.ESCRITOIRE_BE.get(), EscritoireBlockEntityRenderer::new);
+            event.registerBlockEntityRenderer(BlockEntityRegistry.SOUL_CANDLE_BE.get(), SoulCandleBlockEntityRenderer::new);
         }
 
         @SubscribeEvent

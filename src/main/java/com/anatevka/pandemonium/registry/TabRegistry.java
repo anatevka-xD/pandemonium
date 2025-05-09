@@ -68,6 +68,7 @@ public class TabRegistry {
                         output.accept(BlockRegistry.WAXED_EXPOSED_COPPER_CREEPER_STATUE);
                         output.accept(BlockRegistry.WAXED_WEATHERED_COPPER_CREEPER_STATUE);
                         output.accept(BlockRegistry.WAXED_OXIDIZED_COPPER_CREEPER_STATUE);
+                        output.accept(BlockRegistry.SOUL_CANDLE);
                     }).build());
     public static void register(IEventBus eventBus) {
         CREATIVE_MODE_TABS.register(eventBus);

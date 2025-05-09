@@ -75,6 +75,7 @@ public class Escritoire extends HorizontalDirectionalBlock implements EntityBloc
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> blockEntityType) {
         return level.isClientSide ? null : ((level1, pos, state, blockEntity) -> tick(level, pos));
     }
+
     protected void tick(Level level, BlockPos pos) {
         BlockEntity be = level.getBlockEntity(pos);
 
@@ -83,6 +84,7 @@ public class Escritoire extends HorizontalDirectionalBlock implements EntityBloc
             escritoireBlockEntity.animateState(pos, level);
         }
     }
+
     @Override
     protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
         if (state.getBlock() != newState.getBlock()) {
