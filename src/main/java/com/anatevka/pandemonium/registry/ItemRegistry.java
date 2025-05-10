@@ -3,9 +3,15 @@ package com.anatevka.pandemonium.registry;
 import com.anatevka.pandemonium.Pandemonium;
 import com.anatevka.pandemonium.item.*;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.ToolMaterial;
+import net.minecraft.world.item.component.Tool;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.jar.Attributes;
 
 public final class ItemRegistry {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(Pandemonium.MODID);
@@ -17,7 +23,6 @@ public final class ItemRegistry {
     public static final DeferredItem<Item> ESCRITOIRE = ITEMS.registerItem("escritoire", properties -> new EscritoireItem(BlockRegistry.ESCRITOIRE.get(), properties));
     public static final DeferredItem<ResearchPageItem> RESEARCH_PAGE = ITEMS.registerItem("research_page", ResearchPageItem::new);
     public static final DeferredItem<LostPageItem> LOST_PAGE = ITEMS.registerItem("lost_page", LostPageItem::new);
-
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

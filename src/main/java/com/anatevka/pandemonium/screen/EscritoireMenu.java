@@ -41,7 +41,7 @@ public class EscritoireMenu extends AbstractContainerMenu {
             if (i == 0) {
                 this.addSlot(new SlotItemHandler(inventory, i, 11, 48));
             } else {
-                this.addSlot(new SlotItemHandler(inventory, i, 205, 48 + (i - 1) * 26));
+                this.addSlot(new SlotItemHandler(inventory, i, 205, 48 + (i - 1) * 18));
             }
         }
 

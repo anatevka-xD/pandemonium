@@ -206,15 +206,15 @@ public class SoulCandleBlock extends AbstractCandleBlock implements EntityBlock,
         PARTICLE_OFFSETS = (Int2ObjectMap) Util.make(() -> {
             Int2ObjectMap<List<Vec3>> int2objectmap = new Int2ObjectOpenHashMap();
             int2objectmap.defaultReturnValue(ImmutableList.of());
-            int2objectmap.put(1, ImmutableList.of(new Vec3(0.5, 0.5, 0.5)));
-            int2objectmap.put(2, ImmutableList.of(new Vec3(0.375, 0.44, 0.5), new Vec3(0.625, 0.5, 0.44)));
-            int2objectmap.put(3, ImmutableList.of(new Vec3(0.5, 0.313, 0.625), new Vec3(0.375, 0.44, 0.5), new Vec3(0.56, 0.5, 0.44)));
-            int2objectmap.put(4, ImmutableList.of(new Vec3(0.44, 0.313, 0.56), new Vec3(0.625, 0.44, 0.56), new Vec3(0.375, 0.44, 0.375), new Vec3(0.56, 0.5, 0.375)));
+            int2objectmap.put(1, ImmutableList.of(new Vec3(0.5, 0.60, 0.5)));
+            int2objectmap.put(2, ImmutableList.of(new Vec3(0.41, 0.60, 0.47), new Vec3(0.625, 0.40, 0.5)));
+            int2objectmap.put(3, ImmutableList.of(new Vec3(0.375, 0.60, 0.53), new Vec3(0.59, 0.40, 0.375), new Vec3(0.625, 0.533, 0.59)));
+            int2objectmap.put(4, ImmutableList.of(new Vec3(0.41, 0.60, 0.375), new Vec3(0.625, 0.533, 0.656), new Vec3(0.625, 0.40, 0.438), new Vec3(0.375, 0.467, 0.59)));
             return Int2ObjectMaps.unmodifiable(int2objectmap);
         });
-        ONE_AABB = Block.box(7.0, 0.0, 7.0, 9.0, 6.0, 9.0);
-        TWO_AABB = Block.box(5.0, 0.0, 6.0, 11.0, 6.0, 9.0);
-        THREE_AABB = Block.box(5.0, 0.0, 6.0, 10.0, 6.0, 11.0);
-        FOUR_AABB = Block.box(5.0, 0.0, 5.0, 11.0, 6.0, 10.0);
+        ONE_AABB = Block.box(6.5, 0.0, 6.5, 9.5, 6.0, 9.5);
+        TWO_AABB = Block.box(5.0, 0.0, 6.0, 11.5, 6.0, 9.5);
+        THREE_AABB = Block.box(4.5, 0.0, 4.5, 11.5, 6.0, 11.0);
+        FOUR_AABB = Block.box(4.5, 0.0, 4.5, 11.5, 6.0, 12.0);
     }
 }

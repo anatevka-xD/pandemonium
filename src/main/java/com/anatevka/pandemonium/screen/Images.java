@@ -21,7 +21,7 @@ public class Images {
             18,18);
     public static final GuiImage MATERIAL_BAR = new GuiImage(ResourceLocation.fromNamespaceAndPath(Pandemonium.MODID,
             "textures/gui/escritoire/material_bar.png"),
-            26,4);
+            18,18);
     public static final GuiImage CIPHER_SLOT = new GuiImage(ResourceLocation.fromNamespaceAndPath(Pandemonium.MODID,
             "textures/gui/escritoire/cipher_slot_selected.png"),
             8,54);

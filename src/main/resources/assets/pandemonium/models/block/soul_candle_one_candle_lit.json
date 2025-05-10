@@ -1,7 +1,7 @@
 {
-  "parent": "minecraft:block/template_candle",
+  "parent": "pandemonium:block/template_soul_candle",
   "textures": {
-    "all": "pandemonium:block/soul_candle_lit",
+    "0": "pandemonium:block/soul_candle_lit",
     "particle": "pandemonium:block/soul_candle_lit"
   }
 }

@@ -5,21 +5,30 @@ import com.anatevka.pandemonium.registry.DataComponentRegistry;
 import com.anatevka.pandemonium.registry.ItemRegistry;
 import com.anatevka.pandemonium.registry.ResearchRegistry;
 import com.anatevka.pandemonium.registry.TagRegistry;
+import com.anatevka.pandemonium.research.ResearchMaterial;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.network.chat.Style;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.network.PacketDistributor;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -94,6 +103,30 @@ public class EscritoireScreen extends AbstractContainerScreen<EscritoireMenu> {
         return super.keyPressed(key, scancode, mods);
     }
 
+    @Override
+    protected void renderSlotContents(GuiGraphics guiGraphics, ItemStack itemstack, Slot slot, @Nullable String countString) {
+        int i = slot.x;
+        int j = slot.y;
+        int j1 = slot.x + slot.y * this.imageWidth;
+        if (slot.isFake()) {
+            guiGraphics.renderFakeItem(itemstack, i, j, j1);
+        } else {
+            guiGraphics.renderItem(itemstack, i, j, j1);
+        }
+
+        guiGraphics.renderItemDecorations(this.font, itemstack, i, j, countString);
+        if (slot.index > 0 && slot.index < ResearchRegistry.REGISTRY.size()) {
+            i += 2;
+            j += 13;
+            ResearchMaterial material = ResearchRegistry.REGISTRY.get(slot.getSlotIndex()).get().value();
+            guiGraphics.fill(RenderType.gui(), i, j, i + 13, j + 2, 200, -16777216);
+            guiGraphics.fill(RenderType.gui(), i, j,
+                    i + Math.round((float) this.menu.getResearchMaterialAmount(slot.getSlotIndex()-1) * 13.0F / (float) 100),
+                    j + 1, 200, ARGB.opaque(material.color())
+            );
+        }
+    }
+
     private void renderGUI(GuiGraphics guiGraphics){
         guiGraphics.blit(
                 RenderType::guiTextured, Images.ESCRITOIRE_GUI.getImage(),
@@ -126,7 +159,7 @@ public class EscritoireScreen extends AbstractContainerScreen<EscritoireMenu> {
                 //Split into lines that will fit onto the page
                 List<FormattedText> splitText = font.getSplitter().splitLines(researchText.get(i),147, ENCHANTING_TABLE);
                 for (int j = 0; j < splitText.size(); j++) {
-                    guiGraphics.drawString(font, Component.literal(splitText.get(j).getString()).withStyle(ENCHANTING_TABLE), x, y, 0x665A48, false);
+                    guiGraphics.drawString(font, Component.literal(splitText.get(j).getString().replaceAll("[^a-zA-Z\\s]+", "")).withStyle(ENCHANTING_TABLE), x, y, 0x665A48, false);
                     y += 9;
                 }
             }
@@ -204,24 +237,24 @@ public class EscritoireScreen extends AbstractContainerScreen<EscritoireMenu> {
                     if(m.get().index() >= 0) {
                         guiGraphics.blit(
                                 RenderType::guiTextured, this.menu.getSlot(0).getItem().is(m.get().requirementTag()) ? m.get().icon() : m.get().unusedIcon(),
-                                Images.SLOT.getLeftPos(this.width) + 97, Images.SLOT.getTopPos(this.height) - 46 + (m.get().index()-1) * 26,
+                                Images.SLOT.getLeftPos(this.width) + 97, Images.SLOT.getTopPos(this.height) - 54 + (m.get().index()-1) * 18,
                                 0f, 0f,
                                 Images.SLOT.getWidth(), Images.SLOT.getHeight(),
                                 18, 18
                         );
                         guiGraphics.blit(
                                 RenderType::guiTextured, Images.MATERIAL_BAR.getImage(),
-                                Images.MATERIAL_BAR.getLeftPos(this.width) + 97, Images.MATERIAL_BAR.getTopPos(this.height) - 34 + (m.get().index()-1) * 26,
-                                0f, 4f,
+                                Images.MATERIAL_BAR.getLeftPos(this.width) + 97, Images.MATERIAL_BAR.getTopPos(this.height) - 54 + (m.get().index()-1) * 18,
+                                0f, 0f,
                                 Images.MATERIAL_BAR.getWidth(), Images.MATERIAL_BAR.getHeight(),
-                                26, 8, m.get().color()
+                                18, 36, m.get().color()
                         );
                         guiGraphics.blit(
                                 RenderType::guiTextured, Images.MATERIAL_BAR.getImage(),
-                                Images.MATERIAL_BAR.getLeftPos(this.width) + 97, Images.MATERIAL_BAR.getTopPos(this.height) - 34 + (m.get().index()-1) * 26,
-                                0f, 0f,
+                                Images.MATERIAL_BAR.getLeftPos(this.width) + 97, Images.MATERIAL_BAR.getTopPos(this.height) - 54 + (m.get().index()-1) * 18,
+                                0f, 18f,
                                 Images.MATERIAL_BAR.getWidth()*this.menu.getResearchMaterialAmount(m.get().index())/100, Images.MATERIAL_BAR.getHeight(),
-                                26, 8, m.get().color()
+                                18, 36, m.get().color()
                         );
                     }
                 }
