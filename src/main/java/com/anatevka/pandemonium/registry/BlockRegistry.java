@@ -176,9 +176,6 @@ public class BlockRegistry {
     public static final DeferredBlock<SoulCandleBlock> SOUL_CANDLE = registerBlockWithItem("soul_candle", SoulCandleBlock::new, BlockBehaviour.Properties
             .ofFullCopy(Blocks.SOUL_SOIL)
             .lightLevel(SoulCandleBlock.LIGHT_EMISSION));
-    public static final DeferredBlock<GnomeBlock> GNOME = registerBlockWithItem("gnome", GnomeBlock::new, BlockBehaviour.Properties
-            .ofFullCopy(Blocks.FLOWER_POT)
-            .noOcclusion());
 
     public static <T extends Block> DeferredBlock<T> registerBlockWithItem(String name, Function<BlockBehaviour.Properties, T> blockCreator, BlockBehaviour.Properties properties) {
         DeferredBlock<T> block = BLOCKS.registerBlock(name, blockCreator, properties);

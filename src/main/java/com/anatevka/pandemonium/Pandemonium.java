@@ -2,6 +2,7 @@ package com.anatevka.pandemonium;
 
 import com.anatevka.pandemonium.client.renderer.block.*;
 import com.anatevka.pandemonium.network.CipherData;
+import com.anatevka.pandemonium.network.ConvertResearchable;
 import com.anatevka.pandemonium.registry.*;
 import com.anatevka.pandemonium.screen.EscritoireScreen;
 import com.mojang.logging.LogUtils;
@@ -127,6 +128,11 @@ public class Pandemonium
                     CipherData.TYPE,
                     CipherData.STREAM_CODEC,
                     CipherData::handleDataOnMain
+            );
+            registrar.playToServer(
+                    ConvertResearchable.TYPE,
+                    ConvertResearchable.STREAM_CODEC,
+                    ConvertResearchable::handleDataOnMain
             );
         }
     }

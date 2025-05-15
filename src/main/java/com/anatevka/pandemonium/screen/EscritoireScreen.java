@@ -1,6 +1,8 @@
 package com.anatevka.pandemonium.screen;
 
+import com.anatevka.pandemonium.component.ResearchTextComponent;
 import com.anatevka.pandemonium.network.CipherData;
+import com.anatevka.pandemonium.network.ConvertResearchable;
 import com.anatevka.pandemonium.registry.DataComponentRegistry;
 import com.anatevka.pandemonium.registry.ItemRegistry;
 import com.anatevka.pandemonium.registry.ResearchRegistry;
@@ -15,6 +17,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.network.chat.Style;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Inventory;
@@ -78,22 +82,50 @@ public class EscritoireScreen extends AbstractContainerScreen<EscritoireMenu> {
 
     @Override
     public boolean keyPressed(int key, int scancode, int mods) {
+        int oldValue;
         switch (key) {
             case InputConstants.KEY_LEFT:
-                this.cipherSlot = Math.clamp(this.cipherSlot-1, 0, 25);
+                oldValue = this.cipherSlot;
+                this.cipherSlot = Math.clamp(this.cipherSlot - 1, 0, 25);
+                if (oldValue != this.cipherSlot) {
+                    this.minecraft.level.playLocalSound(this.menu.posData.get(0), this.menu.posData.get(1), this.menu.posData.get(2),
+                            SoundEvents.COPPER_BULB_TURN_OFF, SoundSource.BLOCKS, 1.0f, 1.0f, false);
+                }
                 break;
             case InputConstants.KEY_RIGHT:
-                this.cipherSlot = Math.clamp(this.cipherSlot+1, 0, 25);
+                oldValue = this.cipherSlot;
+                this.cipherSlot = Math.clamp(this.cipherSlot + 1, 0, 25);
+                if (oldValue != this.cipherSlot) {
+                    this.minecraft.level.playLocalSound(this.menu.posData.get(0), this.menu.posData.get(1), this.menu.posData.get(2),
+                            SoundEvents.COPPER_BULB_TURN_ON, SoundSource.BLOCKS, 1.0f, 1.0f, false);
+                }
                 break;
             case InputConstants.KEY_UP:
-                cipherState.set(this.cipherSlot, cipherState.get(this.cipherSlot)-1 < 0 ? 25 : cipherState.get(this.cipherSlot)-1);
+                cipherState.set(this.cipherSlot, cipherState.get(this.cipherSlot) - 1 < 0 ? 25 : cipherState.get(this.cipherSlot) - 1);
+                this.minecraft.level.playLocalSound(this.menu.posData.get(0), this.menu.posData.get(1), this.menu.posData.get(2),
+                        SoundEvents.COPPER_BULB_TURN_OFF, SoundSource.BLOCKS, 1.0f, 1.0f, false);
                 break;
             case InputConstants.KEY_DOWN:
-                cipherState.set(this.cipherSlot, cipherState.get(this.cipherSlot)+1 > 25 ? 0 : cipherState.get(this.cipherSlot)+1);
+                cipherState.set(this.cipherSlot, cipherState.get(this.cipherSlot) + 1 > 25 ? 0 : cipherState.get(this.cipherSlot) + 1);
+                this.minecraft.level.playLocalSound(this.menu.posData.get(0), this.menu.posData.get(1), this.menu.posData.get(2),
+                        SoundEvents.COPPER_BULB_TURN_ON, SoundSource.BLOCKS, 1.0f, 1.0f, false);
                 break;
             case InputConstants.KEY_RETURN:
-                PacketDistributor.sendToServer(
-                        new CipherData(BlockPos.containing(this.menu.posData.get(0), this.menu.posData.get(1), this.menu.posData.get(2)), this.cipherState));
+                if (this.menu.getSlot(0).getItem().is(ItemRegistry.RESEARCH_PAGE)) {
+                    PacketDistributor.sendToServer(
+                            new CipherData(BlockPos.containing(this.menu.posData.get(0), this.menu.posData.get(1), this.menu.posData.get(2)), this.cipherState));
+                    this.minecraft.level.playLocalSound(this.menu.posData.get(0), this.menu.posData.get(1), this.menu.posData.get(2),
+                            SoundEvents.UI_CARTOGRAPHY_TABLE_TAKE_RESULT, SoundSource.BLOCKS, 1.0f, 1.0f, false);
+                }
+                if (this.menu.getSlot(0).getItem().is(ItemRegistry.LOST_PAGE)) {
+                    PacketDistributor.sendToServer(
+                            new ConvertResearchable(BlockPos.containing(this.menu.posData.get(0), this.menu.posData.get(1), this.menu.posData.get(2)))
+                    );
+                    this.minecraft.level.playLocalSound(this.menu.posData.get(0), this.menu.posData.get(1), this.menu.posData.get(2),
+                            SoundEvents.UI_CARTOGRAPHY_TABLE_TAKE_RESULT, SoundSource.BLOCKS, 1.0f, 1.0f, false);
+                    this.minecraft.level.playLocalSound(this.menu.posData.get(0), this.menu.posData.get(1), this.menu.posData.get(2),
+                            SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.BLOCKS, 1.0f, 1.0f, false);
+                }
         }
         return super.keyPressed(key, scancode, mods);
     }
@@ -180,8 +212,10 @@ public class EscritoireScreen extends AbstractContainerScreen<EscritoireMenu> {
             int y = Images.RESEARCH_PAGE.getTopPos(this.height*2) - 180;
 
             for (int i = 0; i < researchText.size(); i++) {
+                String decryptedString = ResearchTextComponent.decryptString(researchText.get(i), this.cipherState);
+
                 //Split into lines that will fit onto the page
-                List<FormattedCharSequence> splitText = font.split(FormattedText.of(researchText.get(i)), 147);
+                List<FormattedCharSequence> splitText = font.split(FormattedText.of(decryptedString), 147);
                 for (int j = 0; j < splitText.size(); j++) {
                     guiGraphics.drawString(font, splitText.get(j), x, y, 0x000000, false);
                     y += 9;
@@ -198,7 +232,7 @@ public class EscritoireScreen extends AbstractContainerScreen<EscritoireMenu> {
                     Images.RESEARCH_CIPHER.getLeftPos(this.width), Images.RESEARCH_CIPHER.getTopPos(this.height) + 14,
                     0f, 0f,
                     Images.RESEARCH_CIPHER.getWidth(), Images.RESEARCH_CIPHER.getHeight(),
-                    168,54
+                    170,54
             );
             guiGraphics.blit(
                     RenderType::guiTextured, Images.CIPHER_SLOT.getImage(),

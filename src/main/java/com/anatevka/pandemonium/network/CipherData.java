@@ -38,12 +38,15 @@ public record CipherData(BlockPos pos, List<Integer> cipherState) implements Cus
         context.enqueueWork(() ->
                 {
                     if (context.player().level().getBlockEntity(data.pos()) instanceof EscritoireBlockEntity be) {
-                        ItemStack stack = be.getItemStack(0);
-                        if (stack.is(ItemRegistry.RESEARCH_PAGE)) {
+                        if (be.getItemStack(0).is(ItemRegistry.RESEARCH_PAGE)) {
+                            ItemStack stack = be.getItemStack(0);
                             List<Integer> targetState = stack.get(DataComponentRegistry.CIPHER_DATA).targetState();
                             stack.set(DataComponentRegistry.CIPHER_DATA, new CipherStateComponent(data.cipherState(), targetState));
-                            be.setItemStack(0, stack);
-                            be.setChanged();
+
+                            if (be.getItemStack(0).is(ItemRegistry.RESEARCH_PAGE)) {
+                                be.setItemStack(0, stack);
+                                be.setChanged();
+                            }
                         }
                     }
                 })

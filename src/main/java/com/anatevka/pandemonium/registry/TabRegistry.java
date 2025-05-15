@@ -18,14 +18,12 @@ public class TabRegistry {
                     .icon(() -> new ItemStack(ItemRegistry.SIGNUM_MALI.get()))
                     .title(Component.translatable("tab.pandemonium.pandemonium"))
                     .displayItems((parameters, output) -> {
-                        output.accept(ItemRegistry.GRIMOIRE);
                         output.accept(ItemRegistry.LOST_PAGE);
                         output.accept(ItemRegistry.RESEARCH_PAGE);
-                        output.accept(BlockRegistry.SOUL_CANDLE);
-                        output.accept(ItemRegistry.STONE_CHEST);
-                        output.accept(ItemRegistry.GARGOYLE_STATUE);
+                        output.accept(ItemRegistry.GRIMOIRE);
                         output.accept(ItemRegistry.ESCRITOIRE);
-                        output.accept(BlockRegistry.GNOME);
+                        output.accept(BlockRegistry.SOUL_CANDLE);
+                        output.accept(ItemRegistry.GARGOYLE_STATUE);
                         output.accept(BlockRegistry.OAK_SHELF);
                         output.accept(BlockRegistry.DARK_OAK_SHELF);
                         output.accept(BlockRegistry.CHERRY_SHELF);
@@ -35,6 +33,7 @@ public class TabRegistry {
                         output.accept(BlockRegistry.JUNGLE_SHELF);
                         output.accept(BlockRegistry.ACACIA_SHELF);
                         output.accept(BlockRegistry.STONE_PILLAR);
+                        output.accept(ItemRegistry.STONE_CHEST);
                         output.accept(BlockRegistry.CHISELED_STONE_PILLAR);
                         output.accept(BlockRegistry.STONE_TILES);
                         output.accept(BlockRegistry.STONE_TILE_STAIRS);

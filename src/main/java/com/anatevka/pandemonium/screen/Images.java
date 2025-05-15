@@ -9,7 +9,7 @@ public class Images {
             232, 256);
     public static final GuiImage RESEARCH_CIPHER = new GuiImage(ResourceLocation.fromNamespaceAndPath(Pandemonium.MODID,
             "textures/gui/escritoire/cipher.png"),
-            168,54);
+            170,54);
     public static final GuiImage LOST_PAGE = new GuiImage(ResourceLocation.fromNamespaceAndPath(Pandemonium.MODID,
             "textures/gui/escritoire/lost_page.png"),
             78,106);

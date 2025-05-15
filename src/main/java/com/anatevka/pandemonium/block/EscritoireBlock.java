@@ -31,7 +31,7 @@ public class EscritoireBlock extends HorizontalDirectionalBlock implements Entit
 
     public static final MapCodec<EscritoireBlock> CODEC = simpleCodec(EscritoireBlock::new);
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
-    private static final VoxelShape SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 15.0, 15.0);
+    private static final VoxelShape SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 10.0, 15.0);
     public static final RawAnimation ESCRITOIRE_OPEN = RawAnimation.begin().thenPlay("escritoire.animation.open");
     public static final RawAnimation ESCRITOIRE_CLOSE = RawAnimation.begin().thenPlay("escritoire.animation.close");
 
