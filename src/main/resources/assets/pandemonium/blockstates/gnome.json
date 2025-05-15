@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "pandemonium:block/gnome_one_gnome"
+    },
+    "facing=south": {
+      "model": "pandemonium:block/gnome_one_gnome",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "pandemonium:block/gnome_one_gnome",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "pandemonium:block/gnome_one_gnome",
+      "y": 90
+    }
+  }
+}

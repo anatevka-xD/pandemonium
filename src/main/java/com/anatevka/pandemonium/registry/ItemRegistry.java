@@ -1,6 +1,8 @@
 package com.anatevka.pandemonium.registry;
 
 import com.anatevka.pandemonium.Pandemonium;
+import com.anatevka.pandemonium.component.CipherStateComponent;
+import com.anatevka.pandemonium.component.ResearchTextComponent;
 import com.anatevka.pandemonium.item.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -11,6 +13,8 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.jar.Attributes;
 
 public final class ItemRegistry {
@@ -21,8 +25,29 @@ public final class ItemRegistry {
     public static final DeferredItem<Item> GARGOYLE_STATUE = ITEMS.registerItem("gargoyle_statue", properties -> new GargoyleStatueItem(BlockRegistry.GARGOYLE_STATUE.get(), properties));
     public static final DeferredItem<Item> STONE_CHEST = ITEMS.registerItem("stone_chest", properties -> new StoneChestItem(BlockRegistry.STONE_CHEST.get(), properties));
     public static final DeferredItem<Item> ESCRITOIRE = ITEMS.registerItem("escritoire", properties -> new EscritoireItem(BlockRegistry.ESCRITOIRE.get(), properties));
-    public static final DeferredItem<ResearchPageItem> RESEARCH_PAGE = ITEMS.registerItem("research_page", ResearchPageItem::new);
-    public static final DeferredItem<LostPageItem> LOST_PAGE = ITEMS.registerItem("lost_page", LostPageItem::new);
+    public static final DeferredItem<ResearchPageItem> RESEARCH_PAGE = ITEMS.registerItem("research_page",
+            properties -> new ResearchPageItem(
+                    properties
+                            .component(DataComponentRegistry.CIPHER_DATA,
+                                    new CipherStateComponent(
+                                            new ArrayList<>(CipherStateComponent.DEFAULT_LIST),
+                                            new ArrayList<>(CipherStateComponent.DEFAULT_LIST)))
+                            .component(DataComponentRegistry.RESEARCH_TEXT,
+                                    new ResearchTextComponent(
+                                            new ArrayList<>(ResearchTextComponent.DEFAULT_TEXT)))
+                    ));
+    public static final DeferredItem<LostPageItem> LOST_PAGE = ITEMS.registerItem("lost_page",
+            properties -> new LostPageItem(
+                    properties
+                            .component(DataComponentRegistry.CIPHER_DATA,
+                                    new CipherStateComponent(
+                                            new ArrayList<>(CipherStateComponent.DEFAULT_LIST),
+                                            new ArrayList<>(CipherStateComponent.DEFAULT_LIST)))
+                            .component(DataComponentRegistry.RESEARCH_TEXT,
+                                    new ResearchTextComponent(
+                                            new ArrayList<>(ResearchTextComponent.DEFAULT_TEXT)
+                                    ))
+            ));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

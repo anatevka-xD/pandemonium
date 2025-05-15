@@ -8,9 +8,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import org.jetbrains.annotations.Nullable;
 
-public class StonePillar extends DirectionalBlock {
-    public static final MapCodec<StonePillar> CODEC = simpleCodec(StonePillar::new);
-    public StonePillar(Properties properties) {
+public class StonePillarBlock extends DirectionalBlock {
+    public static final MapCodec<StonePillarBlock> CODEC = simpleCodec(StonePillarBlock::new);
+    public StonePillarBlock(Properties properties) {
         super(properties);
     }
     @Override

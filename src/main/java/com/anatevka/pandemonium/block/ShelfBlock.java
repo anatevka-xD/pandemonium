@@ -10,9 +10,9 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class Shelf extends HorizontalDirectionalBlock{
-    public static final MapCodec<Shelf> CODEC = simpleCodec(Shelf::new);
-    public Shelf(Properties properties) {
+public class ShelfBlock extends HorizontalDirectionalBlock{
+    public static final MapCodec<ShelfBlock> CODEC = simpleCodec(ShelfBlock::new);
+    public ShelfBlock(Properties properties) {
         super(properties);
     }
     @Override

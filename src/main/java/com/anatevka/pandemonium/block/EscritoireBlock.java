@@ -1,18 +1,12 @@
 package com.anatevka.pandemonium.block;
 
 import com.anatevka.pandemonium.block.entity.EscritoireBlockEntity;
-import com.anatevka.pandemonium.screen.EscritoireMenu;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -31,17 +25,17 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animation.RawAnimation;
 
-public class Escritoire extends HorizontalDirectionalBlock implements EntityBlock {
+public class EscritoireBlock extends HorizontalDirectionalBlock implements EntityBlock {
     public static final int INPUT_SLOT_INDEX = 0;
     public static final int SLOT_COUNT = 1;
 
-    public static final MapCodec<Escritoire> CODEC = simpleCodec(Escritoire::new);
+    public static final MapCodec<EscritoireBlock> CODEC = simpleCodec(EscritoireBlock::new);
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
     private static final VoxelShape SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 15.0, 15.0);
     public static final RawAnimation ESCRITOIRE_OPEN = RawAnimation.begin().thenPlay("escritoire.animation.open");
     public static final RawAnimation ESCRITOIRE_CLOSE = RawAnimation.begin().thenPlay("escritoire.animation.close");
 
-    public Escritoire(Properties properties) {
+    public EscritoireBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(OPEN, Boolean.FALSE));
     }
@@ -69,7 +63,9 @@ public class Escritoire extends HorizontalDirectionalBlock implements EntityBloc
     public RenderShape getRenderShape(BlockState state) {return RenderShape.INVISIBLE;}
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {return new EscritoireBlockEntity(blockPos, blockState);}
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+        return new EscritoireBlockEntity(blockPos, blockState);
+    }
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> blockEntityType) {
@@ -77,9 +73,7 @@ public class Escritoire extends HorizontalDirectionalBlock implements EntityBloc
     }
 
     protected void tick(Level level, BlockPos pos) {
-        BlockEntity be = level.getBlockEntity(pos);
-
-        if (be instanceof EscritoireBlockEntity escritoireBlockEntity) {
+        if (level.getBlockEntity(pos) instanceof EscritoireBlockEntity escritoireBlockEntity) {
             escritoireBlockEntity.eatItems();
             escritoireBlockEntity.animateState(pos, level);
         }

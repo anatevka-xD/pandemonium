@@ -57,5 +57,6 @@
   "sounds.pandemonium.escritoire_close": "Escritoire closes",
   "sounds.pandemonium.escritoire_open": "Escritoire opens",
   "container.pandemonium.escritoire": "Research Table",
-  "block.pandemonium.soul_candle": "Soul Candle"
+  "block.pandemonium.soul_candle": "Soul Candle",
+  "block.pandemonium.gnome": "Gnome"
 }

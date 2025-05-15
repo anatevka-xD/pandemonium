@@ -9,10 +9,6 @@ import com.anatevka.pandemonium.research.ResearchMaterial;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.ImageButton;
-import net.minecraft.client.gui.components.Tooltip;
-import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
@@ -24,7 +20,6 @@ import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.network.PacketDistributor;
 
@@ -59,7 +54,7 @@ public class EscritoireScreen extends AbstractContainerScreen<EscritoireMenu> {
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         if(this.menu.getSlot(0).getItem().is(ItemRegistry.RESEARCH_PAGE)) {
             if (this.cipherState.get(0) == -1) {
-                this.cipherState = new ArrayList<>(this.menu.getSlot(0).getItem().get(DataComponentRegistry.CIPHER_DATA).cipherState());
+                this.cipherState = new ArrayList<>(this.menu.getSlot(0).getItem().get(DataComponentRegistry.CIPHER_DATA).state());
             }
         } else {
             this.cipherState.set(0, -1);
@@ -241,20 +236,6 @@ public class EscritoireScreen extends AbstractContainerScreen<EscritoireMenu> {
                                 0f, 0f,
                                 Images.SLOT.getWidth(), Images.SLOT.getHeight(),
                                 18, 18
-                        );
-                        guiGraphics.blit(
-                                RenderType::guiTextured, Images.MATERIAL_BAR.getImage(),
-                                Images.MATERIAL_BAR.getLeftPos(this.width) + 97, Images.MATERIAL_BAR.getTopPos(this.height) - 54 + (m.get().index()-1) * 18,
-                                0f, 0f,
-                                Images.MATERIAL_BAR.getWidth(), Images.MATERIAL_BAR.getHeight(),
-                                18, 36, m.get().color()
-                        );
-                        guiGraphics.blit(
-                                RenderType::guiTextured, Images.MATERIAL_BAR.getImage(),
-                                Images.MATERIAL_BAR.getLeftPos(this.width) + 97, Images.MATERIAL_BAR.getTopPos(this.height) - 54 + (m.get().index()-1) * 18,
-                                0f, 18f,
-                                Images.MATERIAL_BAR.getWidth()*this.menu.getResearchMaterialAmount(m.get().index())/100, Images.MATERIAL_BAR.getHeight(),
-                                18, 36, m.get().color()
                         );
                     }
                 }

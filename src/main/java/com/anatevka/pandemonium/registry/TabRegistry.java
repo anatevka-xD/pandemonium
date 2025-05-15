@@ -1,8 +1,6 @@
 package com.anatevka.pandemonium.registry;
 
 import com.anatevka.pandemonium.Pandemonium;
-import com.anatevka.pandemonium.registry.BlockRegistry;
-import com.anatevka.pandemonium.registry.ItemRegistry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -20,13 +18,14 @@ public class TabRegistry {
                     .icon(() -> new ItemStack(ItemRegistry.SIGNUM_MALI.get()))
                     .title(Component.translatable("tab.pandemonium.pandemonium"))
                     .displayItems((parameters, output) -> {
-                        output.accept(ItemRegistry.SIGNUM_MALI);
-                        output.accept(ItemRegistry.MANDRAKE_SEEDS);
                         output.accept(ItemRegistry.GRIMOIRE);
                         output.accept(ItemRegistry.LOST_PAGE);
                         output.accept(ItemRegistry.RESEARCH_PAGE);
-                        output.accept(BlockRegistry.FLESH_BLOCK);
-                        output.accept(BlockRegistry.ALTAR);
+                        output.accept(BlockRegistry.SOUL_CANDLE);
+                        output.accept(ItemRegistry.STONE_CHEST);
+                        output.accept(ItemRegistry.GARGOYLE_STATUE);
+                        output.accept(ItemRegistry.ESCRITOIRE);
+                        output.accept(BlockRegistry.GNOME);
                         output.accept(BlockRegistry.OAK_SHELF);
                         output.accept(BlockRegistry.DARK_OAK_SHELF);
                         output.accept(BlockRegistry.CHERRY_SHELF);
@@ -41,9 +40,6 @@ public class TabRegistry {
                         output.accept(BlockRegistry.STONE_TILE_STAIRS);
                         output.accept(BlockRegistry.STONE_TILE_SLAB);
                         output.accept(BlockRegistry.CHIPPED_STONE_TILES);
-                        output.accept(ItemRegistry.STONE_CHEST);
-                        output.accept(ItemRegistry.GARGOYLE_STATUE);
-                        output.accept(ItemRegistry.ESCRITOIRE);
                         output.accept(BlockRegistry.COPPER_PEDESTAL);
                         output.accept(BlockRegistry.EXPOSED_COPPER_PEDESTAL);
                         output.accept(BlockRegistry.WEATHERED_COPPER_PEDESTAL);
@@ -68,7 +64,6 @@ public class TabRegistry {
                         output.accept(BlockRegistry.WAXED_EXPOSED_COPPER_CREEPER_STATUE);
                         output.accept(BlockRegistry.WAXED_WEATHERED_COPPER_CREEPER_STATUE);
                         output.accept(BlockRegistry.WAXED_OXIDIZED_COPPER_CREEPER_STATUE);
-                        output.accept(BlockRegistry.SOUL_CANDLE);
                     }).build());
     public static void register(IEventBus eventBus) {
         CREATIVE_MODE_TABS.register(eventBus);

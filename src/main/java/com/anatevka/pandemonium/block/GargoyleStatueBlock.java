@@ -13,11 +13,11 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class GargoyleStatue extends HorizontalDirectionalBlock implements EntityBlock {
-    public static final MapCodec<GargoyleStatue> CODEC = simpleCodec(GargoyleStatue::new);
+public class GargoyleStatueBlock extends HorizontalDirectionalBlock implements EntityBlock {
+    public static final MapCodec<GargoyleStatueBlock> CODEC = simpleCodec(GargoyleStatueBlock::new);
     private static final VoxelShape SHAPE = Block.box(3.0, 0.0, 3.0, 13.0, 13.0, 13.0);
 
-    public GargoyleStatue(Properties properties) {
+    public GargoyleStatueBlock(Properties properties) {
         super(properties);
     }
 

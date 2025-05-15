@@ -1,12 +1,11 @@
 package com.anatevka.pandemonium.block.entity;
 
-import com.anatevka.pandemonium.block.Escritoire;
-import com.anatevka.pandemonium.research.ResearchMaterialStackHandler;
+import com.anatevka.pandemonium.block.EscritoireBlock;
 import com.anatevka.pandemonium.registry.BlockEntityRegistry;
 import com.anatevka.pandemonium.registry.ResearchRegistry;
 import com.anatevka.pandemonium.registry.SoundRegistry;
+import com.anatevka.pandemonium.research.ResearchMaterialStackHandler;
 import com.anatevka.pandemonium.screen.EscritoireMenu;
-import com.google.common.primitives.Ints;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -23,10 +22,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.SimpleContainerData;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -50,7 +46,7 @@ public class EscritoireBlockEntity extends BlockEntity implements GeoBlockEntity
     private final List<Integer> cipherState = Arrays.asList(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25);
     private final ResearchMaterialStackHandler researchMaterialInv = new ResearchMaterialStackHandler(ResearchRegistry.REGISTRY.size() - 1);
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    private final ItemStackHandler inventory = new ItemStackHandler(Escritoire.SLOT_COUNT + ResearchRegistry.REGISTRY.size() - 1) {
+    private final ItemStackHandler inventory = new ItemStackHandler(EscritoireBlock.SLOT_COUNT + ResearchRegistry.REGISTRY.size() - 1) {
         @Override
         protected int getStackLimit(int slot, ItemStack stack) {if (slot == 0) {return 1;} return super.getStackLimit(slot, stack);}
         @Override
@@ -67,7 +63,7 @@ public class EscritoireBlockEntity extends BlockEntity implements GeoBlockEntity
         SingletonGeoAnimatable.registerSyncedAnimatable(this);
     }
 
-    /* Inventory */
+    // Inventory
 
     public void drops() {
         SimpleContainer inv = new SimpleContainer(inventory.getSlots());
@@ -77,9 +73,9 @@ public class EscritoireBlockEntity extends BlockEntity implements GeoBlockEntity
 
     public void eatItems() {
         for(int i = 0; i< researchMaterialInv.getSize(); i++){
-            if(inventory.getStackInSlot(i+Escritoire.SLOT_COUNT).is(researchMaterialInv.getStackMaterial(i).resourceTag())) {
+            if(inventory.getStackInSlot(i+ EscritoireBlock.SLOT_COUNT).is(researchMaterialInv.getStackMaterial(i).resourceTag())) {
                 if(researchMaterialInv.getStackSize(i) <= 90) {
-                    inventory.extractItem(i + Escritoire.SLOT_COUNT, 1, false);
+                    inventory.extractItem(i + EscritoireBlock.SLOT_COUNT, 1, false);
                     researchMaterialInv.increaseStackSize(i, 10);
                 }
             }
@@ -171,7 +167,7 @@ public class EscritoireBlockEntity extends BlockEntity implements GeoBlockEntity
         }
     }
 
-    /* Animation */
+    // Animation
 
     public void animateState(BlockPos pos, Level level){
         Player player = level.getNearestPlayer((double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, 3.0, false);
@@ -194,8 +190,8 @@ public class EscritoireBlockEntity extends BlockEntity implements GeoBlockEntity
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "escritoire_state", state -> PlayState.STOP)
-                .triggerableAnim("close", Escritoire.ESCRITOIRE_CLOSE)
-                .triggerableAnim("open", Escritoire.ESCRITOIRE_OPEN)
+                .triggerableAnim("close", EscritoireBlock.ESCRITOIRE_CLOSE)
+                .triggerableAnim("open", EscritoireBlock.ESCRITOIRE_OPEN)
                 .setSoundKeyframeHandler(event -> {
                     Player player = ClientUtil.getClientPlayer();
 

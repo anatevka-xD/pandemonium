@@ -1,6 +1,5 @@
 package com.anatevka.pandemonium;
 
-import com.anatevka.pandemonium.block.entity.SoulCandleBlockEntity;
 import com.anatevka.pandemonium.client.renderer.block.*;
 import com.anatevka.pandemonium.network.CipherData;
 import com.anatevka.pandemonium.registry.*;
@@ -25,7 +24,6 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
-import net.neoforged.neoforge.network.handling.DirectionalPayloadHandler;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import org.slf4j.Logger;
@@ -110,7 +108,6 @@ public class Pandemonium
             event.registerBlockEntityRenderer(BlockEntityRegistry.STONE_CHEST_BE.get(), StoneChestBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(BlockEntityRegistry.GARGOYLE_STATUE_BE.get(), GargoyleStatueBlockEntityRenderer::new);
             event.registerBlockEntityRenderer(BlockEntityRegistry.ESCRITOIRE_BE.get(), EscritoireBlockEntityRenderer::new);
-            event.registerBlockEntityRenderer(BlockEntityRegistry.SOUL_CANDLE_BE.get(), SoulCandleBlockEntityRenderer::new);
         }
 
         @SubscribeEvent

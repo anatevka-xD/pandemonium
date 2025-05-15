@@ -10,18 +10,18 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class CopperCreeperStatue extends CopperStatue {
-    public static final MapCodec<CopperCreeperStatue> CODEC = RecordCodecBuilder.mapCodec(
+public class CopperCreeperStatueBlock extends CopperStatueBlock {
+    public static final MapCodec<CopperCreeperStatueBlock> CODEC = RecordCodecBuilder.mapCodec(
             (properties) -> properties.group(WeatherState.CODEC.fieldOf("weathering_state").forGetter(WeatheringCopper::getAge), propertiesCodec())
-                    .apply(properties, CopperCreeperStatue::new)
+                    .apply(properties, CopperCreeperStatueBlock::new)
     );
-    private static final VoxelShape SHAPE = Block.box(4.0, 0.0, 4.0, 12.0, 12.0, 12.0);
+    private static final VoxelShape SHAPE = Block.box(5.0, 0.0, 5.0, 11.0, 12.0, 11.0);
 
-    public CopperCreeperStatue(WeatherState weatherState, BlockBehaviour.Properties properties) {
+    public CopperCreeperStatueBlock(WeatherState weatherState, BlockBehaviour.Properties properties) {
         super(weatherState, properties);
     }
     @Override
-    protected MapCodec<? extends CopperCreeperStatue> codec() {
+    protected MapCodec<? extends CopperCreeperStatueBlock> codec() {
         return CODEC;
     }
     @Override

@@ -43,12 +43,6 @@ public class BlockEntityRegistry {
                             EscritoireBlockEntity::new,
                             BlockRegistry.ESCRITOIRE.get()
                     ));
-    public static final Supplier<BlockEntityType<SoulCandleBlockEntity>> SOUL_CANDLE_BE =
-            BLOCK_ENTITIES.register("soul_candle_be",
-                    () -> new BlockEntityType<>(
-                            SoulCandleBlockEntity::new,
-                            BlockRegistry.SOUL_CANDLE.get()
-                    ));
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
     }

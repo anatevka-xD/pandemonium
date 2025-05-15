@@ -19,13 +19,7 @@ import java.util.List;
 
 public class ResearchPageItem extends Item {
     public ResearchPageItem(Properties properties) {
-        this(properties, new ArrayList<>(CipherStateComponent.DEFAULT_LIST), ResearchTextComponent.DEFAULT_TEXT);
-    }
-
-    public ResearchPageItem(Properties properties, List<Integer> cipherState, List<String> researchText) {
-        super(properties
-                .component(DataComponentRegistry.CIPHER_DATA.get(), new CipherStateComponent(cipherState))
-                .component(DataComponentRegistry.RESEARCH_TEXT.get(), new ResearchTextComponent(researchText)));
+        super(properties);
     }
 
     /*@Override

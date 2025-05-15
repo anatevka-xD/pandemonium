@@ -22,11 +22,11 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animation.RawAnimation;
 
-public class StoneChest extends HorizontalDirectionalBlock implements EntityBlock {
-    public static final MapCodec<StoneChest> CODEC = simpleCodec(StoneChest::new);
+public class StoneChestBlock extends HorizontalDirectionalBlock implements EntityBlock {
+    public static final MapCodec<StoneChestBlock> CODEC = simpleCodec(StoneChestBlock::new);
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
 
-    public StoneChest(Properties properties) {
+    public StoneChestBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(OPEN, Boolean.valueOf(false)));
     }

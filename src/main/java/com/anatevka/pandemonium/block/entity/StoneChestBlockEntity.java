@@ -1,6 +1,6 @@
 package com.anatevka.pandemonium.block.entity;
 
-import com.anatevka.pandemonium.block.StoneChest;
+import com.anatevka.pandemonium.block.StoneChestBlock;
 import com.anatevka.pandemonium.registry.BlockEntityRegistry;
 import com.anatevka.pandemonium.registry.SoundRegistry;
 import net.minecraft.core.*;
@@ -114,7 +114,7 @@ public class StoneChestBlockEntity extends BaseContainerBlockEntity implements C
     }
 
     void updateBlockState(BlockState state, boolean open) {
-        this.level.setBlock(this.getBlockPos(), (BlockState)state.setValue(StoneChest.OPEN, open), 3);
+        this.level.setBlock(this.getBlockPos(), (BlockState)state.setValue(StoneChestBlock.OPEN, open), 3);
     }
 
     /* Animation */
@@ -124,8 +124,8 @@ public class StoneChestBlockEntity extends BaseContainerBlockEntity implements C
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "chest_state", state -> PlayState.STOP)
-                .triggerableAnim("close", StoneChest.CLOSE_CHEST)
-                .triggerableAnim("open", StoneChest.OPEN_CHEST)
+                .triggerableAnim("close", StoneChestBlock.CLOSE_CHEST)
+                .triggerableAnim("open", StoneChestBlock.OPEN_CHEST)
                 .setSoundKeyframeHandler(event -> {
                     Player player = ClientUtil.getClientPlayer();
 

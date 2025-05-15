@@ -26,15 +26,15 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class CopperPedestal extends BaseEntityBlock implements WeatheringCopper {
-    public static final MapCodec<CopperPedestal> CODEC = RecordCodecBuilder.mapCodec(
+public class CopperPedestalBlock extends BaseEntityBlock implements WeatheringCopper {
+    public static final MapCodec<CopperPedestalBlock> CODEC = RecordCodecBuilder.mapCodec(
             (properties) -> properties.group(WeatheringCopper.WeatherState.CODEC.fieldOf("weathering_state").forGetter(WeatheringCopper::getAge), propertiesCodec())
-                    .apply(properties, CopperPedestal::new)
+                    .apply(properties, CopperPedestalBlock::new)
     );
     private static final VoxelShape SHAPE = Block.box(3.0, 0.0, 3.0, 13.0, 2.0, 13.0);
     private final WeatherState weatherState;
 
-    public CopperPedestal(WeatherState weatherState, BlockBehaviour.Properties properties) {
+    public CopperPedestalBlock(WeatherState weatherState, BlockBehaviour.Properties properties) {
         super(properties);
         this.weatherState = weatherState;
     }
@@ -72,7 +72,7 @@ public class CopperPedestal extends BaseEntityBlock implements WeatheringCopper 
     }
     @Override
     protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        if(!(newState.getBlock() instanceof CopperPedestal)) {
+        if(!(newState.getBlock() instanceof CopperPedestalBlock)) {
             if (level.getBlockEntity(pos) instanceof CopperPedestalBlockEntity copperPedestalEntity) {
                 copperPedestalEntity.drops();
                 level.updateNeighbourForOutputSignal(pos, this);

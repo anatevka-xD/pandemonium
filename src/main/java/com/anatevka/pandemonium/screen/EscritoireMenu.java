@@ -1,9 +1,7 @@
 package com.anatevka.pandemonium.screen;
 
-import com.anatevka.pandemonium.block.Escritoire;
+import com.anatevka.pandemonium.block.EscritoireBlock;
 import com.anatevka.pandemonium.registry.*;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -23,7 +21,7 @@ public class EscritoireMenu extends AbstractContainerMenu {
 
     public EscritoireMenu(int containerId, Inventory playerInventory) {
         this(containerId, playerInventory,ContainerLevelAccess.NULL,
-                new ItemStackHandler(Escritoire.SLOT_COUNT + ResearchRegistry.REGISTRY.size() - 1),
+                new ItemStackHandler(EscritoireBlock.SLOT_COUNT + ResearchRegistry.REGISTRY.size() - 1),
                 new SimpleContainerData(ResearchRegistry.REGISTRY.size() - 1),
                 new SimpleContainerData(3));
     }

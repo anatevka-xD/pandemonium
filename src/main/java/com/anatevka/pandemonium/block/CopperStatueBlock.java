@@ -20,10 +20,10 @@ import net.minecraft.world.level.block.state.properties.RotationSegment;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class CopperStatue extends Block implements WeatheringCopper {
-    public static final MapCodec<CopperStatue> CODEC = RecordCodecBuilder.mapCodec(
+public class CopperStatueBlock extends Block implements WeatheringCopper {
+    public static final MapCodec<CopperStatueBlock> CODEC = RecordCodecBuilder.mapCodec(
             (properties) -> properties.group(WeatherState.CODEC.fieldOf("weathering_state").forGetter(WeatheringCopper::getAge), propertiesCodec())
-                    .apply(properties, CopperStatue::new)
+                    .apply(properties, CopperStatueBlock::new)
     );
     public static final int MAX = RotationSegment.getMaxSegmentIndex();
     private static final int ROTATIONS;
@@ -31,13 +31,13 @@ public class CopperStatue extends Block implements WeatheringCopper {
     private static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 16.0, 16.0);
     private final WeatherState weatherState;
 
-    public CopperStatue(WeatherState weatherState, Properties properties) {
+    public CopperStatueBlock(WeatherState weatherState, Properties properties) {
         super(properties);
         this.weatherState = weatherState;
         this.registerDefaultState((BlockState)this.defaultBlockState().setValue(ROTATION, 0));
     }
     @Override
-    protected MapCodec<? extends CopperStatue> codec() {
+    protected MapCodec<? extends CopperStatueBlock> codec() {
         return CODEC;
     }
     @Override
